@@ -1,0 +1,22 @@
+{
+  "name": "node-js-getting-started",
+  "version": "1.0.0",
+  "description": "A sample Node.js app using Express 4",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "node",
+    "LeanCloud",
+    "LeanEngine",
+    "express"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "1.12.3",
+    "cloudcode-nodejs-sdk": "git+https://leancloud@github.com/leancloud/cloudcode-nodejs-sdk.git",
+    "ejs": "2.3.1",
+    "express": "4.12.3"
+  }
+}

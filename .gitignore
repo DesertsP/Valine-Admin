@@ -1,0 +1,6 @@
+node_modules
+start.sh
+
+# VIM
+*~
+*.swp
