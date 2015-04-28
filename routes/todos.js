@@ -1,5 +1,5 @@
 var router = require('express').Router();
-var AV = require('cloudcode-nodejs-sdk');
+var AV = require('leanengine-sdk');
 
 // `AV.Object.extend` 方法一定要放在全局变量，否则会造成堆栈溢出。
 // 详见： https://leancloud.cn/docs/js_guide.html#对象

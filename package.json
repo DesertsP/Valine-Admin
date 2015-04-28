@@ -15,8 +15,8 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "1.12.3",
-    "cloudcode-nodejs-sdk": "git+https://leancloud@github.com/leancloud/cloudcode-nodejs-sdk.git",
     "ejs": "2.3.1",
-    "express": "4.12.3"
+    "express": "4.12.3",
+    "leanengine-sdk": "git+https://leancloud@github.com/leancloud/leanengine-node-sdk.git"
   }
 }

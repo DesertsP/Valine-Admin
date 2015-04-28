@@ -2,10 +2,10 @@ var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
 
-// 需要引入 `cloudcode-nodejs-sdk` 模块，该模块扩展了 JS-SDK 中的 AV 对象，
+// 需要引入 `leanengine-sdk` 模块，该模块扩展了 JS-SDK 中的 AV 对象，
 // 增加了云代码的一些支持。
-// 该 AV 对象不需要初始化，因为 `cloudcode-nodejs-sdk` 已经初始化完成。
-var AV = require('cloudcode-nodejs-sdk');
+// 该 AV 对象不需要初始化，因为 `leanengine-sdk` 已经初始化完成。
+var AV = require('leanengine-sdk');
 
 var todos = require('./routes/todos');
 var cloudFunctions = require('./cloudFunctions');
