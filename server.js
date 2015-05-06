@@ -4,8 +4,12 @@ var bodyParser = require('body-parser');
 
 // 需要引入 `leanengine-sdk` 模块，该模块扩展了 JS-SDK 中的 AV 对象，
 // 增加了云代码的一些支持。
-// 该 AV 对象不需要初始化，因为 `leanengine-sdk` 已经初始化完成。
 var AV = require('leanengine-sdk');
+
+var APP_ID = process.env.LC_APP_ID;
+var APP_KEY = process.env.LC_APP_KEY;
+var MASTER_KEY = process.env.LC_APP_MASTER_KEY;
+AV.initialize(APP_ID, APP_KEY, MASTER_KEY);
 
 var todos = require('./routes/todos');
 var cloudFunctions = require('./cloudFunctions');
@@ -26,10 +30,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // 可以将一类的路由单独保存在一个文件中
 app.use('/todos', todos);
 
-// 一个简单的路由，测试应用的最基本功能
-app.get('/time', function (req, res) {
-  res.send('当前时间：' + new Date());
-});
+app.get('/', function(req, res) {
+  res.render('index', { currentTime: new Date() })
+})
 
 /**
  * 健康监测
@@ -48,7 +51,9 @@ app.use(function(err, req, res, next) {
   res.status(500).send('Something broke!');
 });
 
-var port = parseInt(process.env.LC_APP_PORT || 3000, 10);
+// 端口一定要从环境变量 `LC_APP_PORT` 中获取。
+// 云代码运行时会分配端口并赋值到该变量。
+var port = parseInt(process.env.LC_APP_PORT || 3000);
 var server = app.listen(port, function () {
   console.log('Node app is running at localhost:', port);
 });
