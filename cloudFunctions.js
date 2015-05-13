@@ -1,4 +1,4 @@
-var AV = require('cloudcode-nodejs-sdk');
+var AV = require('leanengine-sdk');
 
 /**
  * 一个简单的云代码方法
