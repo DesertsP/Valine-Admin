@@ -7,7 +7,7 @@ AV.Cloud.define('hello', function(req, res) {
   if (req.params.name) {
     res.success('Hello~ ' + req.params.name);
   } else {
-    res.success('Hello~ you are ...?');
+    res.success('Meh... you are ...?');
   }
 });
 
