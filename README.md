@@ -27,6 +27,12 @@ export LC_APP_KEY=<your app key>
 export LC_APP_MASTER_KEY=<your master key>
 ```
 
+安装依赖：
+
+```
+$ npm install
+```
+
 启动项目：
 
 ```
