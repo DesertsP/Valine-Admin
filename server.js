@@ -1,4 +1,4 @@
-var AV = require('leanengine-sdk');
+var AV = require('leanengine');
 
 var APP_ID = process.env.LC_APP_ID;
 var APP_KEY = process.env.LC_APP_KEY;

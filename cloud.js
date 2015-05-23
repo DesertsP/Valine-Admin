@@ -1,4 +1,4 @@
-var AV = require('leanengine-sdk');
+var AV = require('leanengine');
 
 /**
  * 一个简单的云代码方法
