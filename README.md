@@ -5,54 +5,38 @@
 
 ## 本地运行
 
-首先确认本机已经安装 [Node.js](http://nodejs.org/) 运行环境。然后执行下列指令：
+首先确认本机已经安装 [Node.js](http://nodejs.org/) 运行环境和 [LeanCloud 命令行工具](https://leancloud.cn/docs/cloud_code_commandline.html)，然后执行下列指令：
 
 ```
 $ git clone git@github.com:leancloud/node-js-getting-started.git
 $ cd node-js-getting-started
 ```
 
-准备启动文件:
-
-```
-$ cp start.sh.example start.sh
-$ chmod +x start.sh
-```
-
-将 appId 等信息更新到 `start.sh` 文件中：
-
-```
-export LC_APP_ID=<your app id>
-export LC_APP_KEY=<your app key>
-export LC_APP_MASTER_KEY=<your master key>
-```
-
 安装依赖：
 
 ```
-$ npm install
+npm install
 ```
 
 启动项目：
 
 ```
-$ ./start.sh
+avoscloud
 ```
 
 应用即可启动运行：[localhost:3000](http://localhost:3000)
 
 ## 部署到 LeanEngine
 
-首先确认本机已经安装 [LeanCloud 命令行工具](https://leancloud.cn/docs/cloud_code_commandline.html)。
 
 部署到测试环境：
 ```
-$ avoscloud deploy
+avoscloud deploy
 ```
 
 部署到生产环境：
 ```
-$ avoscloud publish
+avoscloud publish
 ```
 
 ## 相关文档
