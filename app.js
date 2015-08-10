@@ -1,5 +1,4 @@
 'use strict';
-
 var domain = require('domain');
 var express = require('express');
 var path = require('path');
