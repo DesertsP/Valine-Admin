@@ -17,6 +17,10 @@ app.use(express.static('public'));
 // 加载云代码方法
 app.use(cloud);
 
+// 使用 LeanEngine 中间件
+// （如果没有加载云代码方法请使用此方法，否则会导致部署失败，详细请阅读 LeanEngine 文档。）
+// app.use(AV.Cloud);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
