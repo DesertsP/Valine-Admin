@@ -57,7 +57,11 @@ app.use(function(req, res, next) {
 // 如果是开发环境，则将异常堆栈输出到页面，方便开发调试
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) { // jshint ignore:line
-    res.status(err.status || 500);
+    var statusCode = err.status || 500;
+    if(statusCode === 500) {
+      console.error(err.stack || err);
+    }
+    res.status(statusCode);
     res.render('error', {
       message: err.message || err,
       error: err
