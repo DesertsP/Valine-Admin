@@ -24,7 +24,7 @@ npm install
 avoscloud add <origin> <appId>
 ```
 
-这里的 appId 填上你在 LeanCloud 上创建的某一应用的 appId 即可。origin 则有点像 Git 的分支名。
+这里的 appId 填上你在 LeanCloud 上创建的某一应用的 appId 即可。origin 则有点像 Git 里的 remote 名称。
 
 启动项目：
 
