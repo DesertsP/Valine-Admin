@@ -23,7 +23,12 @@ app.use(cookieParser());
 
 // 未处理异常捕获 middleware
 app.use(function(req, res, next) {
-  var d = domain.create();
+  var d = null;
+  if (process.domain) {
+    d = process.domain;
+  } else {
+    d = domain.create();
+  }
   d.add(req);
   d.add(res);
   d.on('error', function(err) {
