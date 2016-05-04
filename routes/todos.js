@@ -1,3 +1,4 @@
+'use strict';
 var router = require('express').Router();
 var AV = require('leanengine');
 
@@ -43,7 +44,7 @@ router.post('/', function(req, res, next) {
     error: function(err) {
       next(err);
     }
-  })
-})
+  });
+});
 
 module.exports = router;
