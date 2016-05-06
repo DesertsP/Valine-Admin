@@ -5,7 +5,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var todos = require('./routes/todos');
-var cloud = require('./cloud');
+var AV = require('leanengine');
 
 var app = express();
 
@@ -14,12 +14,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
-// 加载云代码方法
-app.use(cloud);
-
-// 使用 LeanEngine 中间件
-// （如果没有加载云代码方法请使用此方法，否则会导致部署失败，详细请阅读 LeanEngine 文档。）
-// app.use(AV.Cloud);
+// 加载云函数定义
+require('./cloud');
+// 加载云引擎中间件
+app.use(AV.express());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
