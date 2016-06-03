@@ -1,6 +1,6 @@
 'use strict';
-var domain = require('domain');
 var express = require('express');
+var timeout = require('connect-timeout');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -14,6 +14,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
+// 设置默认超时时间
+app.use(timeout('15s'));
+
 // 加载云函数定义
 require('./cloud');
 // 加载云引擎中间件
@@ -22,27 +25,6 @@ app.use(AV.express());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-
-// 未处理异常捕获 middleware
-app.use(function(req, res, next) {
-  var d = null;
-  if (process.domain) {
-    d = process.domain;
-  } else {
-    d = domain.create();
-  }
-  d.add(req);
-  d.add(res);
-  d.on('error', function(err) {
-    console.error('uncaughtException url=%s, msg=%s', req.url, err.stack || err.message || err);
-    if(!res.finished) {
-      res.statusCode = 500;
-      res.setHeader('content-type', 'application/json; charset=UTF-8');
-      res.end('uncaughtException');
-    }
-  });
-  d.run(next);
-});
 
 app.get('/', function(req, res) {
   res.render('index', { currentTime: new Date() });
@@ -61,28 +43,24 @@ app.use(function(req, res, next) {
 });
 
 // error handlers
-
-// 如果是开发环境，则将异常堆栈输出到页面，方便开发调试
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) { // jshint ignore:line
-    var statusCode = err.status || 500;
-    if(statusCode === 500) {
-      console.error(err.stack || err);
-    }
-    res.status(statusCode);
-    res.render('error', {
-      message: err.message || err,
-      error: err
-    });
-  });
-}
-
-// 如果是非开发环境，则页面只输出简单的错误信息
 app.use(function(err, req, res, next) { // jshint ignore:line
-  res.status(err.status || 500);
+  var statusCode = err.status || 500;
+  if(statusCode === 500) {
+    console.error(err.stack || err);
+  }
+  if(req.timedout) {
+    console.error('请求超时: url=%s, timeout=%d, 请确认方法执行耗时很长，或没有正确的 response 回调。', req.originalUrl, err.timeout);
+  }
+  res.status(statusCode);
+  // 默认不输出异常详情
+  var error = {}
+  if (app.get('env') === 'development') {
+    // 如果是开发环境，则将异常堆栈输出到页面，方便开发调试
+    error = err;
+  }
   res.render('error', {
-    message: err.message || err,
-    error: {}
+    message: err.message,
+    error: error
   });
 });
 
