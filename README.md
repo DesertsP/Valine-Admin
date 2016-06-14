@@ -3,6 +3,9 @@
 一个简单的使用 Express 4 的 Node.js 应用。
 可以运行在 LeanEngine Node.js 运行时环境。
 
+## 一键部署
+[Deploy to LeanEngine](https://leancloud.cn/1.1/functions/_ops/deploy-button)
+
 ## 本地运行
 
 首先确认本机已经安装 [Node.js](http://nodejs.org/) 运行环境和 [LeanCloud 命令行工具](https://www.leancloud.cn/docs/leanengine_cli.html)，然后执行下列指令：
