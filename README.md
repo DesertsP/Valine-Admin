@@ -4,7 +4,7 @@
 可以运行在 LeanEngine Node.js 运行时环境。
 
 ## 一键部署
-[![Deploy to LeanEngine](https://cloud.githubusercontent.com/assets/96356/16271079/272b32a8-38cb-11e6-91c8-4b0c82329d85.gif)](https://leancloud.cn/1.1/functions/_ops/deploy-button)
+[![Deploy to LeanEngine](https://cloud.githubusercontent.com/assets/96356/16271179/8779677e-38cb-11e6-8d07-2c4c518395a7.gif)](https://leancloud.cn/1.1/functions/_ops/deploy-button)
 
 ## 本地运行
 
