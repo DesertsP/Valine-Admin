@@ -44,6 +44,11 @@ app.use(function(req, res, next) {
 
 // error handlers
 app.use(function(err, req, res, next) { // jshint ignore:line
+  if (req.timedout && req.headers.upgrade === 'websocket') {
+    // 忽略 websocket 的超时
+    return;
+  }
+
   var statusCode = err.status || 500;
   if(statusCode === 500) {
     console.error(err.stack || err);
