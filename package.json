@@ -4,7 +4,8 @@
   "description": "A sample Node.js app using Express 4",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "./node_modules/.bin/nodemon server.js"
   },
   "keywords": [
     "node",
@@ -20,6 +21,9 @@
     "ejs": "2.3.1",
     "express": "4.12.3",
     "leanengine": "^1.0.0-beta"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   },
   "engines": {
     "node": "4.x"
