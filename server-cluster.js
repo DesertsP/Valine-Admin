@@ -1,7 +1,7 @@
 var cluster = require('cluster');
 
-// 取决于你的实例的可用 CPU 数量
-var workers = 2;
+// 进程数量建议设置为可用的 CPU 数量
+var workers = process.env.LEANCLOUD_AVAILABLE_CPUS || 1;
 
 if (cluster.isMaster) {
   for (var i = 0; i < workers; i++) {
@@ -13,5 +13,5 @@ if (cluster.isMaster) {
     cluster.fork();
   });
 } else {
-  require('./server.js')
+  require('./server.js');
 }
