@@ -23,7 +23,7 @@ npm install
 
 ```
 lean login
-lean checkout
+lean switch
 ```
 
 启动项目：
@@ -48,5 +48,5 @@ lean deploy
 * [JavaScript 开发指南](https://leancloud.cn/docs/leanstorage_guide-js.html)
 * [JavaScript SDK API](https://leancloud.github.io/javascript-sdk/docs/)
 * [Node.js SDK API](https://github.com/leancloud/leanengine-node-sdk/blob/master/API.md)
-* [命令行工具使用指南](https://leancloud.cn/docs/cloud_code_commandline.html)
+* [命令行工具使用指南](https://leancloud.cn/docs/leanengine_cli.html)
 * [云引擎常见问题和解答](https://leancloud.cn/docs/leanengine_faq.html)
