@@ -9,7 +9,7 @@
 
 [评论在线演示](https://panjunwen.com/from-disqus-to-leancloud/)
 
-[后台演示](https://panjunwen.com/from-disqus-to-leancloud/)
+[后台演示](https://deserts.leanapp.cn)
 
 ## 一键部署
 1. ​
@@ -39,8 +39,8 @@
 首先确认本机已经安装 [Node.js](http://nodejs.org/) 运行环境和 [LeanCloud 命令行工具](https://leancloud.cn/docs/leanengine_cli.html)，然后执行下列指令：
 
 ```
-$ git clone https://github.com/panjunwen/LeanComment.git
-$ cd LeanComment
+$ git clone https://github.com/panjunwen/ValineAdmin.git
+$ cd ValineAdmin
 ```
 
 安装依赖：
