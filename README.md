@@ -26,6 +26,8 @@
 
    如果你用过 WordPress 你应该有 Akismet Key；如果还没有，你可以去 [ AKISMET FOR DEVELOPERS 网站](https://akismet.com/development/) 免费申请一个；如果你不需要反垃圾评论，Akismet Key可以随便填写。 
 
+3. 设置二级域名后你可以访问后台。后台管理需要登录，**使用 _User 表中的注册用户即可**。特别提醒，为确保数据安全，请合理设置数据库权限。
+
 ## 数据迁移
 
 [Disqus2LeanCloud](http://disqus.panjunwen.com/)
