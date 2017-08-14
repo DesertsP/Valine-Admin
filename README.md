@@ -32,7 +32,7 @@
 
 ## 评论安装
 
-你可以按照 [Valine -- 一款极简的评论系统](https://github.com/xCss/Valine) 的教程将 Valine 安装到你的博客。**注意：目前版本没有过滤掉垃圾评论的显示。如果你需要更多的功能，如头像显示、美化的样式、垃圾评论过滤等，可以使用 [Deserts 修改的 Valine]()。**
+你可以按照 [Valine -- 一款极简的评论系统](https://github.com/xCss/Valine) 的教程将 Valine 安装到你的博客。**注意：目前版本没有过滤掉垃圾评论的显示。如果你需要更多的功能，如头像显示、美化的样式、垃圾评论过滤等，可以使用 [Deserts 修改的 Valine](https://github.com/panjunwen/Valine)。**
 
 ## 本地运行
 
