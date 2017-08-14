@@ -64,6 +64,7 @@ router.get('/mark-spam', function (req, res, next) {
 });
 
 router.get('/resend-email', function (req, res, next) {
+    if (req.currentUser) {
     let query = new AV.Query(Comment);
     query.get(req.query.id).then(function (object) {
         query.get(object.get('rid')).then(function (parent) {
@@ -74,6 +75,22 @@ router.get('/resend-email', function (req, res, next) {
         ).catch(next);
     }, function (err) {
     }).catch(next);
+    } else {
+        res.redirect('/');
+    }
+});
+
+router.get('/delete', function (req, res, next) {
+    if (req.currentUser) {
+        let query = new AV.Query(Comment);
+        query.get(req.query.id).then(function (object) {
+            object.destroy();
+            res.redirect('/comments')
+        }, function (err) {
+        }).catch(next);
+    } else {
+        res.redirect('/');
+    }
 });
 
 module.exports = router;
