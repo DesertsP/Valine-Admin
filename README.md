@@ -1,16 +1,46 @@
-# Node.js Getting started
-在 LeanCloud 云引擎上使用 Express 的 Node.js 实例项目。
+# Valine Admin
+使用 LeanCloud 存储你的评论数据，在 LeanEngine 云引擎上管理你的评论，包括邮件通知和垃圾评论标记。
+
+这是用于 [Valine -- 一款极简的评论系统](https://github.com/xCss/Valine) 的后台管理，可以一键部署到你的 LeanCloud。它可以帮你完成：
+
+- 更好用的邮件通知：包括新评论通知和@评论通知
+- 基于 Akismet 的垃圾评论自动标注
+- 评论管理
+
+[评论在线演示](https://panjunwen.com/from-disqus-to-leancloud/)
+
+[后台演示](https://panjunwen.com/from-disqus-to-leancloud/)
 
 ## 一键部署
+1. ​
+
 [![Deploy to LeanEngine](http://ac-32vx10b9.clouddn.com/109bd02ee9f5875a.png)](https://leancloud.cn/1.1/engine/deploy-button)
+
+2. 此外，你需要设置云引擎的环境变量以提供必要的信息，如下示例：
+
+   ![](./public/images/settings.png)
+
+   ​
+
+   请正确填写 SMTP 服务器信息，部分邮箱需要单独的 SMTP 密码。
+
+   如果你用过 WordPress 你应该有 Akismet Key；如果还没有，你可以去 [ AKISMET FOR DEVELOPERS 网站](https://akismet.com/development/) 免费申请一个；如果你不需要反垃圾评论，Akismet Key可以随便填写。 
+
+## 数据迁移
+
+[Disqus2LeanCloud](http://disqus.panjunwen.com/)
+
+## 评论安装
+
+你可以按照 [Valine -- 一款极简的评论系统](https://github.com/xCss/Valine) 的教程将 Valine 安装到你的博客。**注意：目前版本没有过滤掉垃圾评论的显示。如果你需要更多的功能，如头像显示、美化的样式、垃圾评论过滤等，可以使用 [Deserts 修改的 Valine]()。**
 
 ## 本地运行
 
 首先确认本机已经安装 [Node.js](http://nodejs.org/) 运行环境和 [LeanCloud 命令行工具](https://leancloud.cn/docs/leanengine_cli.html)，然后执行下列指令：
 
 ```
-$ git clone https://github.com/leancloud/node-js-getting-started.git
-$ cd node-js-getting-started
+$ git clone https://github.com/panjunwen/LeanComment.git
+$ cd LeanComment
 ```
 
 安装依赖：
@@ -41,12 +71,6 @@ lean up
 lean deploy
 ```
 
-## 相关文档
+## License
 
-* [云函数开发指南](https://leancloud.cn/docs/leanengine_cloudfunction_guide-node.html)
-* [网站托管开发指南](https://leancloud.cn/docs/leanengine_webhosting_guide-node.html)
-* [JavaScript 开发指南](https://leancloud.cn/docs/leanstorage_guide-js.html)
-* [JavaScript SDK API](https://leancloud.github.io/javascript-sdk/docs/)
-* [Node.js SDK API](https://github.com/leancloud/leanengine-node-sdk/blob/master/API.md)
-* [命令行工具使用指南](https://leancloud.cn/docs/leanengine_cli.html)
-* [云引擎常见问题和解答](https://leancloud.cn/docs/leanengine_faq.html)
+[MIT License](https://github.com/panjunwen/LeanComment/blob/master/LICENSE)
