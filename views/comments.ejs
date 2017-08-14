@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+<div class="comment-main">
+    <div class="header">
+        <div class="title"><span><%= title %></span></div>
+
+        <div class="logout-wrapper"><a href="/logout">退出登录</a></div>
+    </div>
+
+    <ul class="content">
+        <% for(var i = 0; i < comment_list.length; i++) { %>
+        <li class="vcard">
+            <div class="vhead">
+                <a href="<%= comment_list[i].get('link') %>" target="_blank"
+                   rel="nofollow"> <%= comment_list[i].get('nick') %></a>
+                <% var date = comment_list[i].get('createdAt') %>
+                <span class="spacer">•</span><span class="vtime"><%= dateFormat(date) %></span>
+
+            </div>
+            <div class="vcomment">
+                <%- comment_list[i].get('comment') %>
+            </div>
+            <div class="check">
+                <a class="red" href="/comments/delete?id=<%= comment_list[i].get('objectId') %>" rel="nofollow">删除</a><span class="spacer">•</span>
+                <% if(comment_list[i].get('isSpam')) { %>
+                <a href="/comments/not-spam?id=<%= comment_list[i].get('objectId') %>" rel="nofollow">这不是垃圾评论</a>
+                <% } else { %>
+                <a href="/comments/mark-spam?id=<%= comment_list[i].get('objectId') %>" rel="nofollow">标记为垃圾评论</a>
+                <% } %>
+                <% if (comment_list[i].get('rid')) { %>
+                <% if(comment_list[i].get('isNotified')) { %>
+                <span class="spacer">•</span><span class="vtime">通知已送达</span>
+                <% } else { %>
+                <span class="spacer">•</span>
+                <a href="/comments/resend-email?id=<%= comment_list[i].get('objectId') %>" rel="nofollow">重发通知邮件</a>
+                <% } %>
+                <% } %>
+            </div>
+
+        </li>
+        <% } %>
+    </ul>
+</div>
+</body>
+</html>

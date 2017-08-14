@@ -26,28 +26,50 @@ app.use(AV.express());
 
 app.enable('trust proxy');
 // 需要重定向到 HTTPS 可去除下一行的注释。
-// app.use(AV.Cloud.HttpsRedirect());
+app.use(AV.Cloud.HttpsRedirect());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(AV.Cloud.CookieSession({ secret: 'my secret', maxAge: 3600000, fetchUser: true }));
 
 app.get('/', function(req, res) {
-  res.render('index', { currentTime: new Date() });
+    if (req.currentUser) {
+        res.redirect('/comments');
+    } else {
+        res.render('index');
+    }
 });
 
 // 可以将一类的路由单独保存在一个文件中
-app.use('/todos', require('./routes/todos'));
+app.use('/comments', require('./routes/comments'));
 
-app.use(function(req, res, next) {
-  // 如果任何一个路由都没有返回响应，则抛出一个 404 异常给后续的异常处理器
-  if (!res.headersSent) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-  }
+// 处理登录请求（可能来自登录界面中的表单）
+app.post('/login', function(req, res) {
+    AV.User.logIn(req.body.username, req.body.password).then(function(user) {
+        res.saveCurrentUser(user); // 保存当前用户到 Cookie
+        res.redirect('/comments'); // 跳转到个人资料页面
+    }, function(error) {
+        //登录失败，跳转到登录页面
+        res.redirect('/');
+    });
 });
 
+// 登出账号
+app.get('/logout', function(req, res) {
+    req.currentUser.logOut();
+    res.clearCurrentUser(); // 从 Cookie 中删除用户
+    res.redirect('/');
+});
+
+app.use(function(req, res, next) {
+    // 如果任何一个路由都没有返回响应，则抛出一个 404 异常给后续的异常处理器
+    if (!res.headersSent) {
+        var err = new Error('Not Found');
+        err.status = 404;
+        next(err);
+    }
+});
 // error handlers
 app.use(function(err, req, res, next) {
   if (req.timedout && req.headers.upgrade === 'websocket') {
@@ -74,5 +96,24 @@ app.use(function(err, req, res, next) {
     error: error
   });
 });
+
+app.locals.dateFormat = function (date) {
+    var vDay = padWithZeros(date.getDate(), 2);
+    var vMonth = padWithZeros(date.getMonth() + 1, 2);
+    var vYear = padWithZeros(date.getFullYear(), 2);
+    var vHour = padWithZeros(date.getHours(), 2);
+    var vMinute = padWithZeros(date.getMinutes(), 2);
+    var vSecond = padWithZeros(date.getSeconds(), 2);
+    // return `${vYear}-${vMonth}-${vDay}`;
+    return `${vYear}-${vMonth}-${vDay} ${vHour}:${vMinute}:${vSecond}`;
+};
+
+const padWithZeros = (vNumber, width) => {
+    var numAsString = vNumber.toString();
+    while (numAsString.length < width) {
+        numAsString = '0' + numAsString;
+    }
+    return numAsString;
+};
 
 module.exports = app;

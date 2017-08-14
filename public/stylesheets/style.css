@@ -1,7 +1,152 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Droid Sans,Helvetica Neue,sans-serif;
+    font-size: 1rem;
 }
+
 a {
-  color: #00b7ff;
+    text-decoration: none;
+    color: #3eb0ef;
 }
+
+.footer {
+    font-size: 0.8rem;
+}
+
+.title {
+    font-weight: 200;
+    font-size: 1.5rem;
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    list-style: none;
+}
+
+.content {
+    padding: 0;
+}
+
+
+.header{
+    display: flex;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.header .title {
+    flex: 90%;
+}
+
+.logout-wrapper {
+
+}
+
+.comment-main{
+    padding: 1rem 5rem;
+}
+.vhead {
+    padding-bottom: 0.5rem;
+}
+
+.vhead a {
+    font-weight: bolder;
+    color: #333;
+}
+
+.spacer {
+    color: #ccc;
+    margin-left: 0.3rem;
+    margin-right: 0.3rem;
+}
+
+.vtime {
+    color: #a9a4a4;
+    display: inline-block;
+    padding: 0 5px;
+}
+
+.vcomment {
+    line-height: 1.8;
+}
+
+.vcard {
+    padding: 2rem 0 2rem 0;
+    border-top: 1px solid #dedede;
+}
+
+.check {
+    padding-top: 1rem;
+    color: #33b1ff;
+}
+
+.sign-in-wrap {
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    color: #738a94;
+    font-weight: 100;
+    text-align: center;
+    align-items: center;
+    margin-top: 4rem;
+}
+
+.gh-signin {
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    padding: 1rem 2rem;
+    width: 350px;
+    border: 1px solid #dae1e3;
+    background: #f8fbfd;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.gh-signin .form-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    -webkit-user-select: text;
+    user-select: text;
+}
+
+.sign-in-wrap input {
+    padding: 10px;
+    margin: 1rem 1rem;
+    border: 1px solid #dae1e3;
+    font-size: 1rem;
+    line-height: 1.5em;
+    font-weight: 100;
+    display: block;
+    user-select: text;
+    border-radius: 4px;
+    transition: border-color .15s linear;
+    -webkit-appearance: none;
+    color: #4b5b62;
+    -webkit-user-select: text;
+}
+
+.sign-in-wrap input:focus {
+    border-color: #c4c8cb;
+    outline: 0
+}
+
+.sign-in-wrap .login-button {
+    padding: 8px 10px;
+    cursor: pointer;
+    background: #33b1ff;
+    border: .1rem solid #33b1ff;
+    border-radius: .2rem;
+    color: #fff;
+}
+
+.red {
+    color: #ee1000;
+}
+
