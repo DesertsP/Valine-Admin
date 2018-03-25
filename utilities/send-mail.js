@@ -19,8 +19,6 @@ exports.notice = (comment) => {
         + '<br><p> <a href="'
         + process.env.SITE_URL
         + comment.get('url')
-        + '#'
-        + comment.get('objectId')
         + '">点击前往查看</a>';
 
     let mailOptions = {
@@ -51,8 +49,6 @@ exports.send = (currentComment, parentComment)=> {
         + '</p><p> <a href="'
         + process.env.SITE_URL
         + currentComment.get('url')
-        + '#'
-        + currentComment.get('objectId')
         + '">点击前往查看</a> <br><p><a href="'
         + process.env.SITE_URL + '">'
         + process.env.SITE_NAME + ' </a>欢迎你的再度光临</p>';
