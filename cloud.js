@@ -1,11 +1,8 @@
 const AV = require('leanengine');
 const mail = require('./utilities/send-mail');
-const spam = require('./utilities/check-spam');
 
 AV.Cloud.afterSave('Comment', function (request) {
     let currentComment = request.object;
-    // 检查垃圾评论
-    spam.checkSpam(currentComment);
 
     // 发送博主通知邮件
     mail.notice(currentComment);
