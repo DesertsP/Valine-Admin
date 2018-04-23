@@ -32,6 +32,7 @@ exports.notice = (comment) => {
         if (error) {
             return console.log(error);
         }
+        console.log('通知邮件发送成功！');
     });
 }
 
