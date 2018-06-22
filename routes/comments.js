@@ -27,7 +27,7 @@ router.get('/', function (req, res, next) {
             }
         }).catch(next);
     } else {
-        res.redirect('/login');
+        res.redirect('/');
     }
 });
 
