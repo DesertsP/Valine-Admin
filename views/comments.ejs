@@ -27,6 +27,7 @@
             </div>
             <div class="check">
                 <a class="red" href="/comments/delete?id=<%= comment_list[i].get('objectId') %>" rel="nofollow">删除</a>
+                <a class="blue" href="<%= process.env.SITE_URL+comment_list[i].get('url') %>" rel="nofollow">查看文章</a>
                 <% if (comment_list[i].get('rid')) { %>
                 <% if(comment_list[i].get('isNotified')) { %>
                 <span class="spacer">•</span><span class="vtime">通知已送达</span>
