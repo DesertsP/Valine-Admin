@@ -21,7 +21,7 @@ exports.notice = (comment) => {
 
     let mailOptions = {
         from: '"' + process.env.SENDER_NAME + '" <' + process.env.SENDER_EMAIL + '>',
-        to: process.env.SENDER_EMAIL,
+        to: process.env.BLOGER_EMAIL,
         subject: emailSubject,
         html: emailContent
     };
@@ -30,6 +30,7 @@ exports.notice = (comment) => {
         if (error) {
             return console.log(error);
         }
+        console.log('通知邮件发送成功！');
     });
 }
 

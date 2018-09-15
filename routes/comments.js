@@ -2,7 +2,6 @@
 const router = require('express').Router();
 const AV = require('leanengine');
 const mail = require('../utilities/send-mail');
-const spam = require('../utilities/check-spam');
 
 const Comment = AV.Object.extend('Comment');
 
@@ -26,37 +25,6 @@ router.get('/', function (req, res, next) {
             } else {
                 next(err);
             }
-        }).catch(next);
-    } else {
-        res.redirect('/login');
-    }
-});
-
-router.get('/not-spam', function (req, res, next) {
-    if (req.currentUser) {
-        let query = new AV.Query(Comment);
-        query.get(req.query.id).then(function (object) {
-            object.set('isSpam', false);
-            object.save();
-            spam.submitHam(object);
-            res.redirect('/comments')
-        }, function (err) {
-        }).catch(next);
-    } else {
-        res.redirect('/login');
-    }
-});
-
-
-router.get('/mark-spam', function (req, res, next) {
-    if (req.currentUser) {
-        let query = new AV.Query(Comment);
-        query.get(req.query.id).then(function (object) {
-            object.set('isSpam', true);
-            object.save();
-            spam.submitSpam(object);
-            res.redirect('/comments')
-        }, function (err) {
         }).catch(next);
     } else {
         res.redirect('/');
