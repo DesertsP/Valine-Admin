@@ -36,22 +36,15 @@ exports.notice = (comment) => {
 }
 
 exports.send = (currentComment, parentComment)=> {
-    let emailSubject = '👉 叮咚！「' + process.env.SITE_NAME + '」上有人@了你';
-    let emailContent = '<span style="font-size:16px;color:#212121">Hi，'
-        + parentComment.get('nick')
-        + '</span>'
-        + '<p>「' + process.env.SITE_NAME + '」上 '
-        + currentComment.get('nick')
-        +' @了你，回复内容如下：</p>'
-        + currentComment.get('comment')
-        + '<br><p>原评论内容为：'
-        + parentComment.get('comment')
-        + '</p><p> <a href="'
-        + process.env.SITE_URL
-        + currentComment.get('url')
-        + '">点击前往查看</a> <br><p><a href="'
-        + process.env.SITE_URL + '">'
-        + process.env.SITE_NAME + ' </a>欢迎你的再度光临</p>';
+    let PARENT_NICK = parentComment.get('nick');
+    let SITE_NAME = process.env.SITE_NAME;
+    let NICK = currentComment.get('nick');
+    let COMMENT = currentComment.get('comment');
+    let PARENT_COMMENT = parentComment.get('comment');
+    let POST_URL = process.env.SITE_URL + currentComment.get('url');
+    let SITE_URL = process.env.SITE_URL;
+    let emailSubject = eval('`' + process.env.MAIL_SUBJECT + '`');
+    let emailContent = eval('`' + process.env.MAIL_TEMPLATE + '`');
 
     let mailOptions = {
         from: '"' + process.env.SENDER_NAME + '" <' + process.env.SENDER_EMAIL + '>', // sender address
