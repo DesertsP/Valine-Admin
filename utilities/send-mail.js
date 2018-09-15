@@ -11,15 +11,13 @@ const transporter = nodemailer.createTransport({
 });
 
 exports.notice = (comment) => {
-    let emailSubject = '👉 咚！「' + process.env.SITE_NAME + '」上有新评论了';
-    let emailContent = '<p>「' + process.env.SITE_NAME + '」上 '
-        + comment.get('nick')
-        +' 留下了新评论，内容如下：</p>'
-        + comment.get('comment')
-        + '<br><p> <a href="'
-        + process.env.SITE_URL
-        + comment.get('url')
-        + '">点击前往查看</a>';
+    let SITE_NAME = process.env.SITE_NAME;
+    let NICK = comment.get('nick');
+    let COMMENT = comment.get('comment');
+    let POST_URL = process.env.SITE_URL + comment.get('url');
+    let SITE_URL = process.env.SITE_URL;
+    let emailSubject = eval('`' + process.env.MAIL_SUBJECT_ADMIN + '`');
+    let emailContent = eval('`' + process.env.MAIL_TEMPLATE_ADMIN + '`');
 
     let mailOptions = {
         from: '"' + process.env.SENDER_NAME + '" <' + process.env.SENDER_EMAIL + '>',
