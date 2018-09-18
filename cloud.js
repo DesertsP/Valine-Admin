@@ -5,10 +5,9 @@ const request = require('request');
 
 function sendNotification(currentComment) {
     // 发送博主通知邮件
-    if (currentComment.get('mail') != process.env.BLOGGER_EMAIL){
+    if (currentComment.get('mail') !== process.env.BLOGGER_EMAIL){
         mail.notice(currentComment);
     }
-    
     // AT评论通知
     // 获取评论内容
     var comm = currentComment.get('comment');
@@ -24,9 +23,7 @@ function sendNotification(currentComment) {
     currentComment.set('rid', rid);
     let query = new AV.Query('Comment');
     query.get(rid).then(function (parentComment) {
-        if (parentComment.get('mail') != process.env.BLOGGER_EMAIL){
-            mail.send(currentComment, parentComment);
-        }
+        mail.send(currentComment, parentComment);
     }, function (error) {
         console.warn('获取@对象失败！');
     });
