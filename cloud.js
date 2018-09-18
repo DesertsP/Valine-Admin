@@ -1,6 +1,7 @@
 const AV = require('leanengine');
 const mail = require('./utilities/send-mail');
 const Comment = AV.Object.extend('Comment');
+const request = require('request');
 
 function sendNotification(currentComment) {
     // 发送博主通知邮件
@@ -53,3 +54,10 @@ AV.Cloud.define('resend-mails', function(request) {
         });
     });
   });
+
+AV.Cloud.define('self-wake', function(request) {
+    request(process.env.ADMIN_URL, function (error, response, body) {
+        console.log('自唤醒任务执行成功，响应状态码为:', response && response.statusCode);
+      });
+})
+
