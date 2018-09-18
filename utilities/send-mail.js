@@ -31,6 +31,8 @@ exports.notice = (comment) => {
             return console.log(error);
         }
         console.log('通知邮件发送成功！');
+        comment.set('isNotified', true);
+        comment.save();
     });
 }
 
