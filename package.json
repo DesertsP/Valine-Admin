@@ -18,7 +18,7 @@
     "leancloud-storage": "^3.0.0",
     "leanengine": "^3.0.0",
     "nodemailer": "^4.0.1",
-    "requests": "^0.2.2"
+    "request": "^2.88.0"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
