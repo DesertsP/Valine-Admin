@@ -33,6 +33,9 @@ exports.notice = (comment) => {
         if (error) {
             return console.log(error);
         }
+        console.log('博主通知邮件成功发送: %s', info.response);
+        currentComment.set('isNotified', true);
+        currentComment.save();
     });
 }
 
@@ -42,7 +45,7 @@ exports.send = (currentComment, parentComment)=> {
     let NICK = currentComment.get('nick');
     let COMMENT = currentComment.get('comment');
     let PARENT_COMMENT = parentComment.get('comment');
-    let POST_URL = process.env.SITE_URL + currentComment.get('url') + '#' + comment.get('objectId');
+    let POST_URL = process.env.SITE_URL + currentComment.get('url') + '#' + currentComment.get('objectId');
     let SITE_URL = process.env.SITE_URL;
 
     let _subject = process.env.MAIL_SUBJECT || '${PARENT_NICK}，您在『${SITE_NAME}』上的评论收到了回复';
@@ -61,7 +64,7 @@ exports.send = (currentComment, parentComment)=> {
         if (error) {
             return console.log(error);
         }
-        console.log('邮件 %s 成功发送: %s', info.messageId, info.response);
+        console.log('AT通知邮件成功发送: %s', info.response);
         currentComment.set('isNotified', true);
         currentComment.save();
     });

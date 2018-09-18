@@ -5,7 +5,9 @@ const request = require('request');
 
 function sendNotification(currentComment) {
     // 发送博主通知邮件
-    mail.notice(currentComment);
+    if (currentComment.get('mail') !== process.env.BLOGGER_EMAIL) {
+        mail.notice(currentComment);
+    }
     // AT评论通知
     // 获取评论内容
     var comm = currentComment.get('comment');
@@ -21,7 +23,12 @@ function sendNotification(currentComment) {
     currentComment.set('rid', rid);
     let query = new AV.Query('Comment');
     query.get(rid).then(function (parentComment) {
-        mail.send(currentComment, parentComment);
+        if (parentComment.get('mail') && parentComment.get('mail') !== process.env.BLOGGER_EMAIL) {
+            mail.send(currentComment, parentComment);
+        } else {
+            console.log('被@者匿名，不会发送通知');
+        }
+        
     }, function (error) {
         console.warn('获取@对象失败！');
     });
@@ -29,7 +36,7 @@ function sendNotification(currentComment) {
 
 AV.Cloud.afterSave('Comment', function (request) {
     let currentComment = request.object;
-    sendNotification(currentComment);
+    return sendNotification(currentComment);
 });
 
 AV.Cloud.define('resend-mails', function(request) {
