@@ -2,25 +2,29 @@ const AV = require('leanengine');
 const mail = require('./utilities/send-mail');
 const Comment = AV.Object.extend('Comment');
 const request = require('request');
+const spam = require('./utilities/check-spam');
 
-function sendNotification(currentComment) {
+function sendNotification(currentComment, defaultIp) {
     // 发送博主通知邮件
     if (currentComment.get('mail') !== process.env.BLOGGER_EMAIL) {
         mail.notice(currentComment);
     }
+
+    let ip = currentComment.get('ip') || defaultIp;
+    console.log('IP: %s', ip);
+    spam.checkSpam(currentComment, ip);
+
     // AT评论通知
-    // 获取评论内容
-    var comm = currentComment.get('comment');
-    // 从评论内容中提取出a标签的href属性值
-    var h = comm.match(/<a.*?href?\s*=\s*[\'|\"]+?(.*?)[\'|\"]+?/i);
-    if (!h) {
-        console.log('没有@任何人，结束!');
+    let rid =currentComment.get('pid') || currentComment.get('rid');
+
+    if (!rid) {
+        console.log("这条评论没有 @ 任何人");
+        return;
+    } else if (currentComment.get('isSpam')) {
+        console.log('检测到垃圾评论，通知邮件取消发送');
         return;
     }
-    // 替换掉#号，即为rid
-    let rid = h[1].replace(/#/,"");
-    // 将rid存入数据库，以供管理页面使用。
-    currentComment.set('rid', rid);
+
     let query = new AV.Query('Comment');
     query.get(rid).then(function (parentComment) {
         if (parentComment.get('mail') && parentComment.get('mail') !== process.env.BLOGGER_EMAIL) {
@@ -34,12 +38,13 @@ function sendNotification(currentComment) {
     });
 }
 
-AV.Cloud.afterSave('Comment', function (request) {
-    let currentComment = request.object;
-    return sendNotification(currentComment);
+AV.Cloud.afterSave('Comment', function (req) {
+    let currentComment = req.object;
+    // 检查垃圾评论
+    return sendNotification(currentComment, req.meta.remoteAddress);
 });
 
-AV.Cloud.define('resend-mails', function(request) {
+AV.Cloud.define('resend-mails', function(req) {
     let query = new AV.Query(Comment);
     query.greaterThanOrEqualTo('createdAt', new Date(new Date().getTime() - 24*60*60*1000));
     query.notEqualTo('isNotified', true);
@@ -49,7 +54,7 @@ AV.Cloud.define('resend-mails', function(request) {
         new Promise((resolve, reject)=>{
             count = results.length;
             for (var i = 0; i < results.length; i++ ) {
-                sendNotification(results[i]);
+                sendNotification(results[i], req.meta.remoteAddress);
             }
             resolve(count);
         }).then((count)=>{
