@@ -34,8 +34,8 @@ exports.notice = (comment) => {
             return console.log(error);
         }
         console.log('博主通知邮件成功发送: %s', info.response);
-        currentComment.set('isNotified', true);
-        currentComment.save();
+        comment.set('isNotified', true);
+        comment.save();
     });
 }
 
