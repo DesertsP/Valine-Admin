@@ -1,6 +1,6 @@
 Valine Admin 是 [Valine 评论系统](https://panjunwen.com/diy-a-comment-system/)的扩展和增强，主要实现评论邮件通知、评论管理、垃圾评论过滤等功能。支持完全自定义的邮件通知模板。基于Akismet API实现准确的垃圾评论过滤。此外，使用云函数等技术解决了免费版云引擎休眠问题，支持云引擎自动唤醒，漏发邮件自动补发。兼容云淡风轻及Deserts维护的多版本Valine。
 
-> **项目基于LeanCloud云引擎示例代码实现，您可以自由地复制和修改。所有功能基于LeanCloud免费版开发，设计了一些 trick 实现资源的最大化利用 ，但请勿滥用免费资源。引用本说明文档及Deserts博客上的相关文章务必注明来源。**
+> NOTE: **该项目基于LeanCloud云引擎示例代码实现，您可以自由地复制和修改。包含了一些 trick 实现资源的最大化利用 ，但请勿滥用免费资源。引用本说明文档及Deserts博客上的相关文章务必注明来源。**
 
 [评论在线演示及相关功能测试](https://panjunwen.github.io/Valine/)
 
@@ -8,11 +8,11 @@ Valine Admin 是 [Valine 评论系统](https://panjunwen.com/diy-a-comment-syste
 
 ### 部署云引擎代码
 
-  1. 在[Leancloud](https://leancloud.cn/dashboard/#/apps)云引擎设置界面，填写代码库并保存：https://github.com/panjunwen/Valine-Admin.git
+1. 在[Leancloud](https://leancloud.cn/dashboard/#/apps)云引擎设置界面，填写代码库并保存：https://github.com/panjunwen/Valine-Admin.git
 
 ![设置仓库](https://cloud.panjunwen.com/2018/09/ping-mu-kuai-zhao-2018-09-15-xia-wu-12-56-04.png)
 
-  2. 切换到部署标签页，分支使用master，点击部署即可
+2. 切换到部署标签页，分支使用master，点击部署即可
 
 ![一键部署](https://cloud.panjunwen.com/2018/09/ping-mu-kuai-zhao-2018-09-15-xia-wu-12-56-50.png)
 
@@ -20,11 +20,11 @@ Valine Admin 是 [Valine 评论系统](https://panjunwen.com/diy-a-comment-syste
 
 ![部署过程](https://cloud.panjunwen.com/2018/09/ping-mu-kuai-zhao-2018-09-15-xia-wu-1-00-45.png)
 
-  3. 在设置页面，输入主机二级域名，该域名用于评论后台管理，如[https://deserts.leanapp.cn](https://deserts.leanapp.cn) ，后台管理登录的用户名密码需要在数据库_User表中自行添加。
+3. 在设置页面，输入主机二级域名，该域名用于评论后台管理，如[https://deserts.leanapp.cn](https://deserts.leanapp.cn) ，后台管理登录的用户名密码需要在数据库_User表中自行添加。
 
 ![二级域名](https://cloud.panjunwen.com/2018/09/ping-mu-kuai-zhao-2018-09-15-xia-wu-1-06-41.png)
 
-  4. 在设置页面，设置环境变量
+4. 在设置页面，设置环境变量
 
 ![环境变量](https://cloud.panjunwen.com/2018/09/ping-mu-kuai-zhao-2018-09-15-xia-wu-3-40-48.png)
 
@@ -147,8 +147,6 @@ Valine Admin 是 [Valine 评论系统](https://panjunwen.com/diy-a-comment-syste
 - 博主通知模板中不要出现`PARENT*`相关参数（请勿混用模板）
 
 - 进入Valine Admin评论管理界面，需要在Leancloud数据库中手动新建用户名密码
-
-![ping-mu-kuai-zhao-2018-09-18-xia-wu-3-04-24](https://cloud.panjunwen.com/2018/09/ping-mu-kuai-zhao-2018-09-18-xia-wu-3-04-24.png)
 
 -  点击邮件中的链接跳转至相应评论，这一细节实现需要一点额外的代码：
 
