@@ -1,14 +1,31 @@
 'use strict';
 const nodemailer = require('nodemailer');
-const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: parseInt(process.env.SMTP_PORT),
-    secure: true,
+
+let config = {
     auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS
     }
-});
+}
+
+if (process.env.SMTP_SERVICE != null) {
+    config.service = process.env.SMTP_SERVICE;
+} else {
+    config.host = process.env.SMTP_HOST;
+    config.port = parseInt(process.env.SMTP_PORT);
+    config.secure = process.env.SMTP_SECURE === "false" ? false : true;
+}
+
+const transporter = nodemailer.createTransport(config);
+
+transporter.verify(function(error, success) {
+    if (error) {
+        console.log('SMTP邮箱配置异常：', error);
+    }
+    if (success) {
+        console.log("SMTP邮箱配置正常！");
+    }
+}); 
 
 exports.notice = (comment) => {
     let SITE_NAME = process.env.SITE_NAME;
