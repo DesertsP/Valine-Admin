@@ -29,14 +29,16 @@ Valine Admin 是 [Valine 评论系统](https://panjunwen.com/diy-a-comment-syste
 ![环境变量](https://cloud.panjunwen.com/2018/09/ping-mu-kuai-zhao-2018-09-15-xia-wu-3-40-48.png)
 
 
-| 变量                | 示例                                               | 说明                                         |
+| 变量                 | 示例                                                | 说明                                         |
 | ------------------- | -------------------------------------------------- | -------------------------------------------- |
-| SITE_NAME           | Deserts                                            | [必填]博客名称                               |
+| SITE_NAME           | Deserts                                            | [必填]博客名称                                 |
 | SITE_URL            | https://panjunwen.com                              | [必填]首页地址                               |
-| SMTP_HOST           | smtp.qq.com                                        | [必填]SMTP服务器地址                         |
-| SMTP_PORT           | 465                                                | [必填]SMTP端口                               |
-| SMTP_USER           | xxxxxx@qq.com                                      | [必填]SMTP登录用户                           |
-| SMTP_PASS           | ccxxxxxxxxch                                       | [必填]SMTP登录密码（QQ邮箱需要获取独立密码） |
+| SMTP_SERVICE        | QQ                                                 | [重要]如果没有您的服务商，请填入自定义邮件配置(见下文) |
+| SMTP_HOST           | smtp.qq.com                                        | [自定义]SMTP服务器地址                           |
+| SMTP_PORT           | 465                                                | [自定义]SMTP端口                               |
+| SMTP_SECURE         | ture                                               | SMTP加密，默认为true
+| SMTP_USER           | xxxxxx@qq.com                                      | [自定义]SMTP登录用户                           |
+| SMTP_PASS           | ccxxxxxxxxch                                       | [自定义]SMTP登录密码（QQ邮箱需要获取独立密码） |
 | SENDER_NAME         | Deserts                                            | [必填]发件人                                 |
 | SENDER_EMAIL        | xxxxxx@qq.com                                      | [必填]发件邮箱                               |
 | BLOGGER_EMAIL       | xxxxx@gmail.com                                    | 博主通知收件地址                             |
@@ -47,6 +49,8 @@ Valine Admin 是 [Valine 评论系统](https://panjunwen.com/diy-a-comment-syste
 | ADMIN_URL           | https://xxx.leanapp.cn/                            | Web主机二级域名，用于自动唤醒                |
 | AKISMET_KEY         | xxxxxxxxxxxx                                       | Akismet Key 用于垃圾评论检测（见下文）       |
 
+
+**SMTP_SERVICE** :邮件服务提供商，支持 QQ、163、126、Gmail、Yahoo、...... ，全部支持请参考 : ![Nodemailer Supported services](https://nodemailer.com/smtp/well-known/#supported-services)。 --- 如这里没有你使用的邮件提供商，请自定义邮件服务器
 
 **以上必填参数请务必全部设置**，方能保证通知邮件正确发送。
 
@@ -112,6 +116,11 @@ Valine Admin 是 [Valine 评论系统](https://panjunwen.com/diy-a-comment-syste
 效果如图：
 
 ![彩虹模板](https://cloud.panjunwen.com/2018/09/ping-mu-kuai-zhao-2018-09-15-xia-wu-5-17-21.png)
+
+和一个彩虹风格的博主通知模板代码:
+```html
+<div style="border-radius: 10px 10px 10px 10px;font-size:13px;    color: #555555;width: 666px;font-family:'Century Gothic','Trebuchet MS','Hiragino Sans GB',微软雅黑,'Microsoft Yahei',Tahoma,Helvetica,Arial,'SimSun',sans-serif;margin:50px auto;border:1px solid #eee;max-width:100%;background: #ffffff repeating-linear-gradient(-45deg,#fff,#fff 1.125rem,transparent 1.125rem,transparent 2.25rem);box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);"> <div style="width:100%;background:#49BDAD;color:#ffffff;border-radius: 10px 10px 0 0;background-image: -moz-linear-gradient(0deg, rgb(67, 198, 184), rgb(255, 209, 244));background-image: -webkit-linear-gradient(0deg, rgb(67, 198, 184), rgb(255, 209, 244));height: 66px;"> <p style="font-size:15px;word-break:break-all;padding: 23px 32px;margin:0;background-color: hsla(0,0%,100%,.4);border-radius: 10px 10px 0 0;">您的<a style="text-decoration:none;color: #ffffff;" href="${SITE_URL}"> ${SITE_NAME} </a>上有新的评论啦！ </p> </div> <div style="margin:40px auto;width:90%"> <p>${NICK} 发表评论：</p> <div style="background: #fafafa repeating-linear-gradient(-45deg,#fff,#fff 1.125rem,transparent 1.125rem,transparent 2.25rem);box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);margin:20px 0px;padding:15px;border-radius:5px;font-size:14px;color:#555555;">${COMMENT}</div> <p><a style="text-decoration:none; color:#12addb" href="${POST_URL}" target="_blank">[查看评论]</a></p> <style type="text/css">a:link{text-decoration:none}a:visited{text-decoration:none}a:hover{text-decoration:none}a:active{text-decoration:none}</style> </div> </div>
+```
 
 
 ### 垃圾评论检测
