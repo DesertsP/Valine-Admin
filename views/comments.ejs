@@ -16,8 +16,11 @@
         <% for(var i = 0; i < comment_list.length; i++) { %>
         <li class="vcard">
             <div class="vhead">
-                <a href="<%= comment_list[i].get('link') %>" target="_blank"
-                   rel="nofollow"> <%= comment_list[i].get('nick') %></a>
+                <% if(comment_list[i].get('link')) { %>
+                    <a href="<%= comment_list[i].get('link') %>" target="_blank" rel="nofollow"> <%= comment_list[i].get('nick') %></a>
+                <% } else { %>
+                    <span id="nick"><%= comment_list[i].get('nick') %></span>
+                <% } %>
                 <% var date = comment_list[i].get('createdAt') %>
                 <span class="spacer">•</span><span class="vtime"><%= dateFormat(date) %></span>
 
@@ -34,7 +37,7 @@
                 <span class="spacer">•</span>
                 <a class="red" href="/comments/delete?id=<%= comment_list[i].get('objectId') %>" rel="nofollow">删除</a>
                 <span class="spacer">•</span>
-                <a class="blue" href="<%= process.env.SITE_URL+comment_list[i].get('url')+'#' + comment_list[i].get('objectId') %>" rel="nofollow">查看文章</a>
+                <a class="blue" href="<%= process.env.SITE_URL+comment_list[i].get('url')+'#' + comment_list[i].get('objectId') %>" target="_blank" rel="nofollow">查看评论</a>
                 <% if (comment_list[i].get('rid')) { %>
                 <% if(comment_list[i].get('isNotified')) { %>
                 <span class="spacer">•</span><span class="vtime">通知已送达</span>
