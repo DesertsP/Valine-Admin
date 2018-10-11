@@ -51,7 +51,7 @@ li {
     padding-bottom: 0.5rem;
 }
 
-.vhead a {
+.vhead a , .vhead #nick {
     font-weight: bolder;
     color: #333;
 }
