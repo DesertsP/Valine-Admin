@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>LeanCloud评论管理</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+
+<div class="sign-in-wrap">
+    <p class="title">管理员设置</p>
+    <p class="gh-signin gh-signup">
+        还差最后一步，请设置并确认管理员信息。
+        <br>完成后，你可以使用设置的用户名/邮箱登录后台管理。
+        <br>首次安装 Valine Admin 请务必填写这些信息。该页面仅在初次安装后出现，可确保您的数据安全。
+        <br>
+        <b>注意：强制使用环境变量中设置的博主邮箱作为管理员邮箱。</b>
+    </p>
+    <hr />
+    <form method="post" action="/sign-up" class="gh-signin gh-signup">
+        <label>登录名</label><input placeholder="登录名" tabindex="1" name="username"
+               autofocus="" type="text" class="gh-input">
+        <label>邮箱(只读)</label><input tabindex="2" name="email" readonly="readonly" value="<%= email %>"
+               placeholder="<%= email %>" type="text" class="gh-input">
+        <label>密码</label><input tabindex="3" name="password" placeholder="密码" type="password" class="password gh-input ember-view">
+        <input tabindex="4" type="submit" class="login-button" value="确认设置">
+    </form>
+    <div class="footer"><p><a href="https://panjunwen.com">By Deserts</a></p></div>
+</div>
+</body>
+</html>

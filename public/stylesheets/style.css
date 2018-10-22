@@ -94,6 +94,10 @@ li {
     margin-top: 4rem;
 }
 
+.gh-signup {
+    width: 600px !important;
+}
+
 .gh-signin {
     display: flex;
     -ms-flex-direction: column;
@@ -117,7 +121,7 @@ li {
 
 .sign-in-wrap input {
     padding: 10px;
-    margin: 1rem 1rem;
+    margin: 1rem 0;
     border: 1px solid #dae1e3;
     font-size: 1rem;
     line-height: 1.5em;
