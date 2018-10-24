@@ -47,19 +47,15 @@ app.use('/sign-up', require('./routes/sign-up'));
 
 // 处理登录请求（可能来自登录界面中的表单）
 app.post('/login', function (req, res) {
-
     AV.User.logIn(req.body.username, req.body.password).then(function (user) {
         let adminMail = process.env.BLOGGER_EMAIL || process.env.SMTP_USER;
-        console.log(user.get('email'));
         if (user.get('email') === adminMail) {
             res.saveCurrentUser(user); // 保存当前用户到 Cookie
             res.redirect('/comments');
         }
-
         else {
             res.redirect('/');
         }
-
     }, function (error) {
         //登录失败，跳转到登录页面
         res.redirect('/');
