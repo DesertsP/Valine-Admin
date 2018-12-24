@@ -16,38 +16,19 @@
         <% for(var i = 0; i < comment_list.length; i++) { %>
         <li class="vcard">
             <div class="vhead">
-                <% if(comment_list[i].get('link')) { %>
-                    <a href="<%= comment_list[i].get('link') %>" target="_blank" rel="nofollow"> <%= comment_list[i].get('nick') %></a>
-                <% } else { %>
-                    <span id="nick"><%= comment_list[i].get('nick') %></span>
-                <% } %>
+                <a href="<%= comment_list[i].get('link') %>" target="_blank"
+                   rel="nofollow"> <%= comment_list[i].get('nick') %></a>
                 <% var date = comment_list[i].get('createdAt') %>
                 <span class="spacer">•</span><span class="vtime"><%= dateFormat(date) %></span>
-
+                <% var url = domain + comment_list[i].get('url') + "#comments" %>
+                <a href="<%= url %>">查看该评论所在文章</a>
             </div>
             <div class="vcomment">
                 <%- comment_list[i].get('comment') %>
             </div>
             <div class="check">
-                <% if(comment_list[i].get('isSpam')) { %>
-                <a href="/comments/not-spam?id=<%= comment_list[i].get('objectId') %>" rel="nofollow">这不是垃圾评论</a>
-                <% } else { %>
-                <a href="/comments/mark-spam?id=<%= comment_list[i].get('objectId') %>" rel="nofollow">标记为垃圾评论</a>
-                <% } %>
-                <span class="spacer">•</span>
-                <a class="red" href="/comments/delete?id=<%= comment_list[i].get('objectId') %>" rel="nofollow">删除</a>
-                <span class="spacer">•</span>
-                <a class="blue" href="<%= process.env.SITE_URL+comment_list[i].get('url')+'#' + comment_list[i].get('objectId') %>" target="_blank" rel="nofollow">查看评论</a>
-                <% if (comment_list[i].get('rid')) { %>
-                <% if(comment_list[i].get('isNotified')) { %>
-                <span class="spacer">•</span><span class="vtime">通知已送达</span>
-                <% } else { %>
-                <span class="spacer">•</span>
-                <a href="/comments/resend-email?id=<%= comment_list[i].get('objectId') %>" rel="nofollow">重发通知邮件</a>
-                <% } %>
-                <% } %>
+                <a class="red" href="javascript:if(confirm('确认要删除吗?'))location='/comments/delete?id=<%= comment_list[i].get('objectId') %>'" rel="nofollow">删除</a><span class="spacer">•</span>
             </div>
-
         </li>
         <% } %>
     </ul>

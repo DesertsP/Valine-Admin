@@ -29,6 +29,7 @@ li {
     padding: 0;
 }
 
+
 .header{
     display: flex;
     -ms-flex-direction: row;
@@ -51,7 +52,7 @@ li {
     padding-bottom: 0.5rem;
 }
 
-.vhead a , .vhead #nick {
+.vhead a {
     font-weight: bolder;
     color: #333;
 }
@@ -94,10 +95,6 @@ li {
     margin-top: 4rem;
 }
 
-.gh-signup {
-    width: 600px !important;
-}
-
 .gh-signin {
     display: flex;
     -ms-flex-direction: column;
@@ -121,7 +118,7 @@ li {
 
 .sign-in-wrap input {
     padding: 10px;
-    margin: 1rem 0;
+    margin: 1rem 1rem;
     border: 1px solid #dae1e3;
     font-size: 1rem;
     line-height: 1.5em;
@@ -153,7 +150,3 @@ li {
     color: #ee1000;
 }
 
-.blue{
-    padding-left: 9px;
-    color: #33b1ff;
-}
