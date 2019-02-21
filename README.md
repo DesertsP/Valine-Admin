@@ -4,18 +4,19 @@ Valine Admin 是 [Valine 评论系统](https://panjunwen.com/diy-a-comment-syste
 
 [评论在线演示及相关功能测试](https://panjunwen.github.io/Valine/)
 
-安装教程请以博客最新版为准。
+安装教程请以[博客最新版](https://panjunwen.com/valine-admin-document/)为准。
 
 ## 快速部署
 
  1. 在[Leancloud](https://leancloud.cn/dashboard/#/apps)云引擎设置界面，填写代码库并保存：https://github.com/DesertsP/Valine-Admin.git
 
 ![设置仓库](https://cloud.panjunwen.com/2018/09/ping-mu-kuai-zhao-2018-09-15-xia-wu-12-56-04.png)
-
+ 
  2. 在设置页面，设置环境变量以及 Web 二级域名。
 
 ![环境变量](https://cloud.panjunwen.com/2018/09/ping-mu-kuai-zhao-2018-09-15-xia-wu-3-40-48.png)
 
+<div class="table-wrap">
 
 变量 | 示例 | 说明
 --- | ------ | ------
@@ -29,6 +30,8 @@ SENDER_EMAIL | xxxxxx@qq.com | [必填]发件邮箱
 ADMIN_URL | https://xxx.leanapp.cn/ | [建议]Web主机二级域名，用于自动唤醒
 BLOGGER_EMAIL | xxxxx@gmail.com | [可选]博主通知收件地址，默认使用SENDER_EMAIL
 
+</div>
+    
 **以上必填参数请务必正确设置。**
 
 二级域名用于评论后台管理，如[https://deserts.leanapp.cn](https://deserts.leanapp.cn) 。
@@ -43,9 +46,12 @@ BLOGGER_EMAIL | xxxxx@gmail.com | [可选]博主通知收件地址，默认使�
 
 ![部署过程](https://cloud.panjunwen.com/2018/09/ping-mu-kuai-zhao-2018-09-15-xia-wu-1-00-45.png)
 
- 4. 评论管理。访问设置的二级域名`https://二级域名.leanapp.cn/sign-up`，设置管理员登录信息，如：[https://deserts.leanapp.cn/sign-up](https://deserts.leanapp.cn/sign-up) 
+ 4. 评论管理。访问设置的二级域名`https://二级域名.leanapp.cn/sign-up`，注册管理员登录信息，如：[https://deserts.leanapp.cn/sign-up](https://deserts.leanapp.cn/sign-up) 
  <img src="https://cloud.panjunwen.com/2018/10/ping-mu-kuai-zhao-2018-10-22-xia-wu-9-35-51.png" alt="管理员注册" style="
     width: 600px;">
+    >注：使用原版Valine如果遇到注册页面不显示直接跳转至登录页的情况，请手动删除_User表中的全部数据。
+   
+   此后，可以通过`https://二级域名.leanapp.cn/`管理评论。
     
  5. 定时任务设置
 
@@ -55,19 +61,18 @@ BLOGGER_EMAIL | xxxxx@gmail.com | [可选]博主通知收件地址，默认使�
 
 选择self-wake云函数，Cron表达式为`0 0/30 7-23 * * ?`，表示每天早6点到晚23点每隔30分钟访问云引擎，`ADMIN_URL`环境变量务必设置正确：
 
+
 <img src="https://cloud.panjunwen.com/2018/09/ping-mu-kuai-zhao-2018-09-18-xia-wu-2-57-43.png" alt="唤醒云引擎">
 
 选择resend-mails云函数，Cron表达式为`0 0 8 * * ?`，表示每天早8点检查过去24小时内漏发的通知邮件并补发：
 
 <img src="https://cloud.panjunwen.com/2018/09/ping-mu-kuai-zhao-2018-09-18-xia-wu-2-57-53.png" alt="通知检查" >
 
+
 **添加定时器后记得点击启动方可生效。**
 
-### 评论管理
-
-评论管理页仍然比较简单，在评论量较低时基本满足需要。
-
-![评论管理](https://cloud.panjunwen.com/2018/09/ping-mu-kuai-zhao-2018-09-19-xia-wu-8-12-51.png)
+**至此，Valine Admin 已经可以正常工作，更多以下是可选的进阶配置。**
+-----------------
 
 ### 邮件通知模板
 

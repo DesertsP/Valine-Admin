@@ -22,6 +22,9 @@
                     <span id="nick"><%= comment_list[i].get('nick') %></span>
                 <% } %>
                 <% var date = comment_list[i].get('createdAt') %>
+                <% if(comment_list[i].get('mail')) { %>
+                <span class="spacer">•</span><span class="vtime"><%= comment_list[i].get('mail') %></span>
+                <% } %>
                 <span class="spacer">•</span><span class="vtime"><%= dateFormat(date) %></span>
 
             </div>
