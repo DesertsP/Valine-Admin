@@ -21,7 +21,7 @@ function sendNotification(currentComment, defaultIp) {
         console.log("这条评论没有 @ 任何人");
         return;
     } else if (currentComment.get('isSpam')) {
-        console.log('检测到垃圾评论，通知邮件取消发送');
+        console.log('评论未通过审核，通知邮件暂不发送');
         return;
     }
 
