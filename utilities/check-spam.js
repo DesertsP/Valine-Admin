@@ -6,6 +6,12 @@ const akismetClient = akismet.client({
 });
 
 exports.checkSpam = (comment, ip)=> {
+    if (process.env.AKISMET_KEY === 'MANUAL_REVIEW') {
+        console.log('已使用人工审核模式，评论审核后才会发表~');
+        comment.set('isSpam', true);
+        comment.save();
+        return;
+    }
     akismetClient.verifyKey(function(err, valid) {
         if (err) console.log('Akismet key 异常:', err.message);
         if (valid) {
@@ -40,6 +46,9 @@ exports.checkSpam = (comment, ip)=> {
     });
 };
 exports.submitSpam = (comment)=> {
+    if (process.env.AKISMET_KEY === 'MANUAL_REVIEW') {
+        return;
+    }
     akismetClient.verifyKey(function(err, valid) {
         if (err) console.log('Akismet key 异常:', err.message);
         if (valid) {
@@ -65,6 +74,9 @@ exports.submitSpam = (comment)=> {
     });
 };
 exports.submitHam = (comment)=> {
+    if (process.env.AKISMET_KEY === 'MANUAL_REVIEW') {
+        return;
+    }
     akismetClient.verifyKey(function(err, valid) {
         if (err) console.log('Akismet key 异常:', err.message);
         if (valid) {
