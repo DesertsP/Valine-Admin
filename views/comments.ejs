@@ -17,7 +17,12 @@
         <li class="vcard">
             <div class="vhead">
                 <% if(comment_list[i].get('link')) { %>
-                    <a href="<%= comment_list[i].get('link') %>" target="_blank" rel="nofollow"> <%= comment_list[i].get('nick') %></a>
+                    <% var link = comment_list[i].get('link'); %>
+                    <% if(link.indexOf("//") != -1) { %>
+                        <a href="<%= link %>" target="_blank" rel="nofollow"> <%= comment_list[i].get('nick') %></a>
+                    <% } else { %>
+                        <a href="//<%= link %>" target="_blank" rel="nofollow"> <%= comment_list[i].get('nick') %></a>
+                    <% } %>
                 <% } else { %>
                     <span id="nick"><%= comment_list[i].get('nick') %></span>
                 <% } %>
