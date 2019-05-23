@@ -44,7 +44,7 @@ AV.Cloud.afterSave('Comment', function (req) {
     return sendNotification(currentComment, req.meta.remoteAddress);
 });
 
-AV.Cloud.define('resend-mails', function(req) {
+AV.Cloud.define('resend_mails', function(req) {
     let query = new AV.Query(Comment);
     query.greaterThanOrEqualTo('createdAt', new Date(new Date().getTime() - 24*60*60*1000));
     query.notEqualTo('isNotified', true);
@@ -65,9 +65,9 @@ AV.Cloud.define('resend-mails', function(req) {
     });
   });
 
-AV.Cloud.define('self-wake', function(req) {
+AV.Cloud.define('self_wake', function(req) {
     request(process.env.ADMIN_URL, function (error, response, body) {
         console.log('自唤醒任务执行成功，响应状态码为:', response && response.statusCode);
       });
-})
+});
 
