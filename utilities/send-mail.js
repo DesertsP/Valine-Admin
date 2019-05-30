@@ -54,6 +54,8 @@ exports.notice = (comment) => {
         if (error) {
             return console.log(error);
         }
+        comment.set('isNotified', true);
+        comment.save();
         console.log("收到一条评论, 已提醒站长");
     });
 }
@@ -89,6 +91,8 @@ exports.send = (currentComment, parentComment)=> {
         if (error) {
             return console.log(error);
         }
+        currentComment.set('isNotified', true);
+        currentComment.save();
         console.log(currentComment.get('nick') + " @了" + parentComment.get('nick') + ", 已通知.");
     });
 };
