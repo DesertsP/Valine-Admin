@@ -1,4 +1,5 @@
 'use strict';
+const AV = require('leanengine');
 const akismet = require('akismet-api');
 const akismetClient = akismet.client({
     key  : process.env.AKISMET_KEY,
@@ -33,6 +34,7 @@ exports.checkSpam = (comment, ip)=> {
                 if (spam) {
                     console.log('逮到一只垃圾评论，烧死它！用文火~');
                     comment.set('isSpam', true);
+                    comment.setACL(new AV.ACL({"*":{"read":false}}));
                     comment.save();
                     // comment.destroy();
                 } else {
