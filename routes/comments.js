@@ -67,6 +67,7 @@ router.get('/not-spam', function (req, res, next) {
         let query = new AV.Query(Comment);
         query.get(req.query.id).then(function (object) {
             object.set('isSpam', false);
+            object.set('ACL', {"*":{"read":true}} );
             object.save();
             spam.submitHam(object);
             res.redirect('/comments')
@@ -81,6 +82,7 @@ router.get('/mark-spam', function (req, res, next) {
         let query = new AV.Query(Comment);
         query.get(req.query.id).then(function (object) {
             object.set('isSpam', true);
+            object.set('ACL', {"*":{"read":false}} );
             object.save();
             spam.submitSpam(object);
             res.redirect('/comments')
