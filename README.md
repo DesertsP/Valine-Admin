@@ -30,7 +30,9 @@ SENDER_EMAIL | xxxxxx@qq.com | [必填]发件邮箱
 ADMIN_URL | https://xxx.leanapp.cn/ | [建议]Web主机二级域名，用于自动唤醒
 BLOGGER_EMAIL | xxxxx@gmail.com | [可选]博主通知收件地址，默认使用SENDER_EMAIL
 AKISMET_KEY | xxxxxxxxxxxx | [可选]Akismet Key 用于垃圾评论检测，设为MANUAL_REVIEW开启人工审核，留空不使用反垃圾
-
+BAIDU_APPID | xxxxxxxxxxxx | [可选]百度云内容审核引擎APPID（用于垃圾评论检测，设为MANUAL_REVIEW开启人工审核，优先级高于AKISMET_KEY，若配置则优先使用Baidu内容审核）
+BAIDU_APIKEY | xxxxxxxxxxxx | [可选]若启用百度内容审核则必填，可前往https://ai.baidu.com/censoring 配置审核策略和申请应用AK SK
+BAIDU_SECRET | xxxxxxxxxxxx | [可选]若启用百度内容审核则必填
 </div>
     
 **以上必填参数请务必正确设置。**
@@ -147,6 +149,27 @@ COMMENT | 新评论内容
 环境变量 | 示例 | 说明
 --- | ------ | ------
 AKISMET_KEY | xxxxxxxxxxxx | [可选]Akismet Key 用于垃圾评论检测
+
+## 百度AI垃圾评论检测
+
+> 使用百度内容审核平台替代Akismet的审核功能，白名单和黑名单的提交功能由于百度没有开放接口所以只能在百度后台进行配置。
+> 相比于Akismet，百度内容审核平台属于付费产品，但个人有一定免费额度（文本接口实名认证后累计50万次调用，还有图像接口，详见[计费规则](https://ai.baidu.com/ai-doc/ANTIPORN/lk3h6x7if)）
+> 百度审核只审核评论的内容，不需要任何用户信息，相比Akismet来说更加简单直接。同时支持配置[自定义审核策略](https://ai.baidu.com/censoring)，可对色情、暴恐、政治敏感、恶意推广、低俗辱骂、低质灌水等内容进行阈值自定义调整，使用上更加灵活方便。
+> 同时由于百度没有提供黑白名单的API接口（通过配置策略自主上传），所以如果选择了百度审核，则本管理后台的黑白名单的功能将不会生效，请前往百度后台自主配置。
+
+如果还没有百度云账号，你可以去百度大脑的 [AI开放平台](https://ai.baidu.com/tech/textcensoring) 免费申请一个；
+
+**当BAIDU_APPID设为MANUAL_REVIEW时，开启人工审核模式；**
+如果你不需要反垃圾评论，BAIDU_APPID环境变量可以忽略。
+
+~~**为了实现较为精准的垃圾评论识别，采集的判据除了评论内容、邮件地址和网站地址外，还包括评论者的IP地址、浏览器信息等，但仅在云引擎后台使用这些数据，确保隐私和安全。**~~
+百度审核不需要这些内容
+
+环境变量 | 示例 | 说明
+--- | ------ | ------
+BAIDU_APPID | xxxxxxxxxxxx | [可选]百度云内容审核引擎APPID（用于垃圾评论检测，设为MANUAL_REVIEW开启人工审核，优先级高于AKISMET_KEY，若配置则优先使用Baidu内容审核）
+BAIDU_APIKEY | xxxxxxxxxxxx | [可选]若启用百度内容审核则必填，可前往https://ai.baidu.com/censoring 配置审核策略和申请应用AK SK
+BAIDU_SECRET | xxxxxxxxxxxx | [可选]若启用百度内容审核则必填
 
 ## 防止云引擎休眠
 

@@ -1,4 +1,5 @@
 'use strict';
+const BD = require('./check-spam-baidu');
 const AV = require('leanengine');
 const akismet = require('akismet-api');
 const akismetClient = akismet.client({
@@ -7,6 +8,9 @@ const akismetClient = akismet.client({
 });
 
 exports.checkSpam = (comment, ip)=> {
+    if (process.env.Baidu_APPID != undefined){
+        return BD.checkSpam(comment, ip);
+    }
     if (process.env.AKISMET_KEY === 'MANUAL_REVIEW') {
         console.log('已使用人工审核模式，评论审核后才会发表~');
         comment.setACL(new AV.ACL({"*":{"read":false}}));
@@ -50,6 +54,9 @@ exports.checkSpam = (comment, ip)=> {
     });
 };
 exports.submitSpam = (comment)=> {
+    if (process.env.Baidu_APPID != undefined){
+        return BD.submitSpam(comment);
+    }
     if (process.env.AKISMET_KEY === 'MANUAL_REVIEW') {
         return;
     }
@@ -77,7 +84,10 @@ exports.submitSpam = (comment)=> {
         else console.log('Akismet key 异常!');
     });
 };
-exports.submitHam = (comment)=> {
+exports.submitHam = (comment)=> {    
+    if (process.env.Baidu_APPID != undefined){
+        return BD.submitHam(comment);
+    }
     if (process.env.AKISMET_KEY === 'MANUAL_REVIEW') {
         return;
     }
