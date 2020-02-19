@@ -38,7 +38,7 @@
             </div>
             <div class="check">
                 <% if(comment_list[i].get('isSpam')) { %>
-                <a href="/comments/not-spam?id=<%= comment_list[i].get('objectId') %>" rel="nofollow">这不是垃圾评论</a>
+                <a class="red" href="/comments/not-spam?id=<%= comment_list[i].get('objectId') %>" rel="nofollow">这不是垃圾评论</a>
                 <% } else { %>
                 <a href="/comments/mark-spam?id=<%= comment_list[i].get('objectId') %>" rel="nofollow">标记为垃圾评论</a>
                 <% } %>
