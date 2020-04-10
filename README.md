@@ -201,8 +201,8 @@ SMTP_SECURE | true | [可选]SMTP_SERVICE留空时填写
 首先确认本机已经安装 [Node.js](http://nodejs.org/) 运行环境和 [LeanCloud 命令行工具](https://leancloud.cn/docs/leanengine_cli.html)，然后执行下列指令：
 
 ```
-$ git clone https://github.com/DesertsP/ValineAdmin.git
-$ cd ValineAdmin
+$ git clone https://github.com/DesertsP/Valine-Admin.git
+$ cd Valine-Admin
 ```
 
 安装依赖：
