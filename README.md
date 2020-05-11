@@ -61,12 +61,12 @@ AKISMET_KEY | xxxxxxxxxxxx | [可选]Akismet Key 用于垃圾评论检测，设�
 
 进入云引擎-定时任务中，创建定时器，创建两个定时任务。
 
-选择self-wake云函数，Cron表达式为`0 0/30 7-23 * * ?`，表示每天早6点到晚23点每隔30分钟访问云引擎，`ADMIN_URL`环境变量务必设置正确：
+选择self-wake云函数，Cron表达式为`0 */25 0-15,23 * * ?`，表示每天早7点到晚23点每隔25分钟访问云引擎，`ADMIN_URL`环境变量务必设置正确：
 
 
 <img src="https://cloud.panjunwen.com/2018/09/ping-mu-kuai-zhao-2018-09-18-xia-wu-2-57-43.png" alt="唤醒云引擎">
 
-选择resend-mails云函数，Cron表达式为`0 0 8 * * ?`，表示每天早8点检查过去24小时内漏发的通知邮件并补发：
+选择resend-mails云函数，Cron表达式为`0 10 23 * * ?`，表示每天早上7点10检查过去24小时内漏发的通知邮件并补发：
 
 <img src="https://cloud.panjunwen.com/2018/09/ping-mu-kuai-zhao-2018-09-18-xia-wu-2-57-53.png" alt="通知检查" >
 
