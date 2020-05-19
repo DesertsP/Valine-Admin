@@ -33,20 +33,20 @@ li {
     display: flex;
     -ms-flex-direction: row;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.header .title {
-    flex: 90%;
-}
-
-.logout-wrapper {
-
+@media screen and (max-width:768px) {
+    .comment-main {
+        padding: 1rem;
+    }
 }
 
 .comment-main{
     padding: 1rem 5rem;
 }
+
 .vhead {
     padding-bottom: 0.5rem;
 }
@@ -70,6 +70,7 @@ li {
 
 .vcomment {
     line-height: 1.8;
+    word-wrap: break-word;
 }
 
 .vcard {
@@ -103,7 +104,7 @@ li {
     -ms-flex-direction: column;
     flex-direction: column;
     padding: 1rem 2rem;
-    width: 350px;
+    width: 320px;
     border: 1px solid #dae1e3;
     background: #f8fbfd;
     border-radius: 5px;
