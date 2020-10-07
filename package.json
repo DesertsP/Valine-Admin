@@ -1,6 +1,6 @@
 {
   "name": "Valine-Admin",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "description": "A sample Node.js app using Express",
   "main": "server.js",
@@ -24,6 +24,6 @@
     "nodemon": "^1.11.0"
   },
   "engines": {
-    "node": "12.x"
+    "node": "11.x"
   }
 }
