@@ -10,11 +10,11 @@ Valine Admin 是 [Valine 评论系统](https://deserts.io/diy-a-comment-system/)
 
  1. 在[Leancloud](https://leancloud.cn/dashboard/#/apps)云引擎设置界面，填写代码库并保存：https://github.com/DesertsP/Valine-Admin.git
 
-![设置仓库](https://cloud.panjunwen.com/2018/09/ping-mu-kuai-zhao-2018-09-15-xia-wu-12-56-04.png)
+![设置仓库](assets/imgs/src-setup.png)
 
  2. 在设置页面，设置环境变量以及 Web 二级域名。
 
-![环境变量](https://cloud.panjunwen.com/2018/09/ping-mu-kuai-zhao-2018-09-15-xia-wu-3-40-48.png)
+![环境变量](assets/imgs/env-setup.png)
 
 <div class="table-wrap">
 
@@ -31,24 +31,23 @@ ADMIN_URL | https://xxx.leanapp.cn/ | [建议]Web主机二级域名，用于自�
 BLOGGER_EMAIL | xxxxx@gmail.com | [可选]博主通知收件地址，默认使用SENDER_EMAIL
 AKISMET_KEY | xxxxxxxxxxxx | [可选]Akismet Key 用于垃圾评论检测，设为MANUAL_REVIEW开启人工审核，留空不使用反垃圾
 
-</div>
-    
+
 **以上必填参数请务必正确设置。**
 
-二级域名用于评论后台管理，如[https://deserts.leanapp.cn](https://deserts.leanapp.cn) 。
+在「应用控制台 > 设置 > 域名绑定」中，设置二级域名，用于评论后台管理，如[https://deserts.leanapp.cn](https://deserts.leanapp.cn) 。
 
-![二级域名](https://cloud.panjunwen.com/2018/09/ping-mu-kuai-zhao-2018-09-15-xia-wu-1-06-41.png)
+![二级域名](assets/imgs/sub-domain.png)
 
  3. 切换到部署标签页，分支使用master，点击部署即可
 
-![一键部署](https://cloud.panjunwen.com/2018/09/ping-mu-kuai-zhao-2018-09-15-xia-wu-12-56-50.png)
+![一键部署](assets/imgs/src-deploy.png)
 
 第一次部署需要花点时间。
 
-![部署过程](https://cloud.panjunwen.com/2018/09/ping-mu-kuai-zhao-2018-09-15-xia-wu-1-00-45.png)
+![部署过程](assets/imgs/dploy-log.png)
 
  4. 评论管理。访问设置的二级域名`https://二级域名.leanapp.cn/sign-up`，注册管理员登录信息，如：[https://deserts.leanapp.cn/sign-up](https://deserts.leanapp.cn/sign-up) 
-    <img src="https://cloud.panjunwen.com/2018/10/ping-mu-kuai-zhao-2018-10-22-xia-wu-9-35-51.png" alt="管理员注册" style="
+    <img src="assets/imgs/demo-login.png" alt="管理员注册" style="
     width: 600px;">
 
     >注：使用原版Valine如果遇到注册页面不显示直接跳转至登录页的情况，请手动删除_User表中的全部数据。
@@ -63,12 +62,11 @@ AKISMET_KEY | xxxxxxxxxxxx | [可选]Akismet Key 用于垃圾评论检测，设�
 
 选择self-wake云函数，Cron表达式为`0 */25 0-15,23 * * ?`，表示每天早7点到晚23点每隔25分钟访问云引擎，`ADMIN_URL`环境变量务必设置正确：
 
-
-<img src="https://cloud.panjunwen.com/2018/09/ping-mu-kuai-zhao-2018-09-18-xia-wu-2-57-43.png" alt="唤醒云引擎">
+<img src="assets/imgs/cron1.png" alt="唤醒云引擎">
 
 选择resend-mails云函数，Cron表达式为`0 10 23 * * ?`，表示每天早上7点10检查过去24小时内漏发的通知邮件并补发：
 
-<img src="https://cloud.panjunwen.com/2018/09/ping-mu-kuai-zhao-2018-09-18-xia-wu-2-57-53.png" alt="通知检查" >
+<img src="assets/imgs/cron2.png" alt="通知检查" >
 
 
 **添加定时器后记得点击启动方可生效。**
@@ -97,7 +95,7 @@ MAIL_TEMPLATE_ADMIN | 见下文 | [可选]博主邮件通知内容模板
 
 效果如下图：
 
-![mail-blue-template](https://cloud.panjunwen.com/2018/09/wei-ming-ming.png)
+![mail-blue-template](assets/imgs/wei-ming-ming.png)
 
 @通知模板中的可用变量如下（注，这是邮件模板变量，请勿与云引擎环境变量混淆）：
 
@@ -128,7 +126,7 @@ COMMENT | 新评论内容
 
 效果如图：
 
-![彩虹模板](https://cloud.panjunwen.com/2018/09/ping-mu-kuai-zhao-2018-09-15-xia-wu-5-17-21.png)
+![彩虹模板](assets/imgs/rainbow-theme.png)
 
 
 ## 垃圾评论检测
@@ -159,7 +157,7 @@ AKISMET_KEY | xxxxxxxxxxxx | [可选]Akismet Key 用于垃圾评论检测
 - 部署失败，请在评论中附图，或去Github发起Issue
 - 邮件发送失败，确保环境变量都没问题后，重启云引擎
   
-    ![重启云引擎](https://cloud.panjunwen.com/2018/09/ping-mu-kuai-zhao-2018-09-15-xia-wu-5-22-56.png)
+    ![重启云引擎](assets/imgs/reboot.png)
     
 - 博主通知模板中不要出现`PARENT*`相关参数（请勿混用模板）
 
