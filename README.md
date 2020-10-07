@@ -6,6 +6,12 @@ Valine Admin 是 [Valine 评论系统](https://deserts.io/diy-a-comment-system/)
 
 配置以[博客最新版](https://deserts.io/valine-admin-document/)为准。
 
+## 相关项目
+
+评论框前端：[Valine on Github](https://github.com/DesertsP/Valine)
+
+[Disqus2LeanCloud数据迁移](https://github.com/DesertsP/disqus2valine/)
+
 
 
 ## 云引擎"一键"部署
@@ -169,11 +175,7 @@ SMTP_SECURE | true | [可选]使用TLS
 </script>
 ```
 
-## 相关项目
 
-评论框前端：[Valine on Github](https://github.com/panjunwen/Valine)
-
-[Disqus2LeanCloud数据迁移](http://disqus.panjunwen.com/)
 
 ------------------
 
