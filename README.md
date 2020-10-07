@@ -6,75 +6,65 @@ Valine Admin 是 [Valine 评论系统](https://deserts.io/diy-a-comment-system/)
 
 配置以[博客最新版](https://deserts.io/valine-admin-document/)为准。
 
-## 快速部署
 
- 1. 在[Leancloud](https://leancloud.cn/dashboard/#/apps)云引擎设置界面，填写代码库并保存：https://github.com/DesertsP/Valine-Admin.git
 
-![设置仓库](assets/imgs/src-setup.png)
+## 云引擎"一键"部署
 
- 2. 在设置页面，设置环境变量以及 Web 二级域名。
+进入评论系统数据库所在的LeanCloud应用。进入「云引擎-设置」，设置环境变量以及云引擎域名。**以下参数需要正确设置。云引擎域名（ADMIN_URL参数）用于评论后台管理，如[](https://deserts-io.avosapps.us/) 。
 
-![环境变量](assets/imgs/env-setup.png)
-
-<div class="table-wrap">
 
 变量 | 示例 | 说明
---- | ------ | ------
+--- | ------ | ---------
 SITE_NAME | Deserts | [必填]博客名称
-SITE_URL  | https://deserts.io | [必填]首页地址 
+SITE_URL  | https://panjunwen.com | [必填]首页地址 
 **SMTP_SERVICE** | QQ | [新版支持]邮件服务提供商，支持 QQ、163、126、Gmail 以及 [更多](https://nodemailer.com/smtp/well-known/#supported-services) 
 SMTP_USER | xxxxxx@qq.com | [必填]SMTP登录用户
 SMTP_PASS | ccxxxxxxxxch | [必填]SMTP登录密码（QQ邮箱需要获取独立密码） 
 SENDER_NAME | Deserts | [必填]发件人 
 SENDER_EMAIL | xxxxxx@qq.com | [必填]发件邮箱
-ADMIN_URL | https://xxx.leanapp.cn/ | [建议]Web主机二级域名，用于自动唤醒
+ADMIN_URL | https://xxx.leanapp.cn/ | [建议]Web主机二级域名（云引擎域名），用于自动唤醒 
 BLOGGER_EMAIL | xxxxx@gmail.com | [可选]博主通知收件地址，默认使用SENDER_EMAIL
-AKISMET_KEY | xxxxxxxxxxxx | [可选]Akismet Key 用于垃圾评论检测，设为MANUAL_REVIEW开启人工审核，留空不使用反垃圾
+AKISMET_KEY | xxxxxxxx | [可选]Akismet Key 用于垃圾评论检测，设为MANUAL_REVIEW开启人工审核，留空不使用反垃圾
+
+![](assets/imgs/envs.png)
+
+切换到「云引擎-部署」，部署模式选择「部署项目-Git部署」，分支「master」，手动部署目标环境为「生产环境」在[Leancloud](https://leancloud.cn/dashboard/#/apps)云引擎设置界面，填写代码库并保存：https://github.com/DesertsP/Valine-Admin.git，即可一键部署。
+
+![deploy3](assets/imgs/deploy4.png)
+
+## 评论管理
+
+首先需要设置管理员信息。访问管理员注册页面`https://云引擎域名/sign-up`，注册管理员登录信息，如：[https://deserts-io.avosapps.us/sign-up](https://deserts-io.avosapps.us/sign-up) 
+
+![signup](assets/imgs/signup2.png)
 
 
-**以上必填参数请务必正确设置。**
+- 注：使用原版Valine如果遇到注册页面不显示直接跳转至登录页的情况，请手动删除_User表中的全部数据。
+## 定时任务设置
 
-在「应用控制台 > 设置 > 域名绑定」中，设置二级域名，用于评论后台管理，如[https://deserts.leanapp.cn](https://deserts.leanapp.cn) 。
+关于自动休眠的官方说法：[点击查看](https://leancloud.cn/docs/leanengine_plan.html#hash633315134)。目前实现了两种云函数定时任务来解决云引擎休眠的问题：
 
-![二级域名](assets/imgs/sub-domain.png)
+- 自动唤醒，定时访问Web APP二级域名防止云引擎休眠；
+- 每天定时检查过去24小时内漏发的邮件通知。
 
- 3. 切换到部署标签页，分支使用master，点击部署即可
+进入「云引擎-定时任务」，创建两个定时任务。
 
-![一键部署](assets/imgs/src-deploy.png)
-
-第一次部署需要花点时间。
-
-![部署过程](assets/imgs/dploy-log.png)
-
- 4. 评论管理。访问设置的二级域名`https://二级域名.leanapp.cn/sign-up`，注册管理员登录信息，如：[https://deserts.leanapp.cn/sign-up](https://deserts.leanapp.cn/sign-up) 
-    <img src="assets/imgs/demo-login.png" alt="管理员注册" style="
-    width: 600px;">
-
-    >注：使用原版Valine如果遇到注册页面不显示直接跳转至登录页的情况，请手动删除_User表中的全部数据。
-
-   此后，可以通过`https://二级域名.leanapp.cn/`管理评论。
-    
- 5. 定时任务设置
-
-目前实现了两种云函数定时任务：(1)自动唤醒，定时访问Web APP二级域名防止云引擎休眠；(2)每天定时检查24小时内漏发的邮件通知。
-
-进入云引擎-定时任务中，创建定时器，创建两个定时任务。
-
-选择self-wake云函数，Cron表达式为`0 */25 0-15,23 * * ?`，表示每天早7点到晚23点每隔25分钟访问云引擎，`ADMIN_URL`环境变量务必设置正确：
-
-<img src="assets/imgs/cron1.png" alt="唤醒云引擎">
-
-选择resend-mails云函数，Cron表达式为`0 10 23 * * ?`，表示每天早上7点10检查过去24小时内漏发的通知邮件并补发：
-
-<img src="assets/imgs/cron2.png" alt="通知检查" >
+![](assets/imgs/cron4.png)
 
 
-**添加定时器后记得点击启动方可生效。**
+选择self-wake云函数，Cron表达式为`0 */30 0-16 * * ?`，表示每天早0点到晚16点每隔30分钟访问云引擎。
 
-**至此，Valine Admin 已经可以正常工作，更多以下是可选的进阶配置。**
------------------
+选择resend-mails云函数，Cron表达式为`0 0 0 * * ?`，表示每天0点检查过去24小时内漏发的通知邮件并补发。
 
-### 邮件通知模板
+- [关于国际版时区的问题](https://github.com/DesertsP/Valine-Admin/issues/63#issuecomment-533784574)：国际版使用UTC-0时间，注意与国内时间对应。
+
+**至此，Valine Admin 已经可以正常工作，以下是可选配置。**
+
+------------------
+
+## 更多设置
+
+#### 邮件通知模板
 
 邮件通知模板在云引擎环境变量中设定，可自定义通知邮件标题及内容模板。
 
@@ -84,6 +74,7 @@ MAIL_SUBJECT | ${PARENT_NICK}，您在${SITE_NAME}上的评论收到了回复 | 
 MAIL_TEMPLATE | 见下文 | [可选]@通知邮件内容模板
 MAIL_SUBJECT_ADMIN | ${SITE_NAME}上有新评论了 | [可选]博主邮件通知主题模板
 MAIL_TEMPLATE_ADMIN | 见下文 | [可选]博主邮件通知内容模板
+
 
 邮件通知包含两种，分别是被@通知和博主通知，这两种模板都可以完全自定义。默认使用经典的蓝色风格模板（样式来源未知）。
 
@@ -97,7 +88,7 @@ MAIL_TEMPLATE_ADMIN | 见下文 | [可选]博主邮件通知内容模板
 
 ![mail-blue-template](assets/imgs/wei-ming-ming.png)
 
-@通知模板中的可用变量如下（注，这是邮件模板变量，请勿与云引擎环境变量混淆）：
+@通知模板中的可用变量如下（注，这是邮件模板变量，是指嵌入到HTML邮件模板中的变量，请勿与云引擎环境变量混淆）：
 
 模板变量 | 说明
 ----|----
@@ -108,6 +99,7 @@ PARENT_NICK | 收件人昵称（被@者，父级评论人）
 PARENT_COMMENT | 父级评论内容
 NICK | 新评论者昵称
 COMMENT | 新评论内容
+
 
 默认博主通知邮件内容模板如下：
 
@@ -129,7 +121,7 @@ COMMENT | 新评论内容
 ![彩虹模板](assets/imgs/rainbow-theme.png)
 
 
-## 垃圾评论检测
+#### 垃圾评论检测
 
 > Akismet (Automattic Kismet)是应用广泛的一个垃圾留言过滤系统，其作者是大名鼎鼎的WordPress 创始人 Matt Mullenweg，Akismet也是WordPress默认安装的插件，其使用非常广泛，设计目标便是帮助博客网站来过滤留言Spam。有了Akismet之后，基本上不用担心垃圾留言的烦恼了。
 > 启用Akismet后，当博客再收到留言会自动将其提交到Akismet并与Akismet上的黑名单进行比对，如果名列该黑名单中，则该条留言会被标记为垃圾评论且不会发布。
@@ -146,23 +138,24 @@ COMMENT | 新评论内容
 --- | ------ | ------
 AKISMET_KEY | xxxxxxxxxxxx | [可选]Akismet Key 用于垃圾评论检测
 
-## 防止云引擎休眠
+#### 手动配置邮件服务器
 
-关于自动休眠的官方说法：[点击查看](https://leancloud.cn/docs/leanengine_plan.html#hash633315134)
+- 自定义邮件服务器地址和端口信息，删除SMTP_SERVICE环境变量，新增以下变量：
 
-目前最新版的 Valine Admin 已经可以实现自唤醒，即在 LeanCloud 云引擎中定时请求 Web 应用地址防止休眠。对于夜间休眠期漏发的邮件通知，自动在次日早上补发。**务必确保配置中设置了ADMIN_URL环境变量，并在第5步添加了两个云函数定时任务。**
+变量 | 示例 | 说明
+----|------|------
+SMTP_HOST | smtp.qq.com | [可选]SMTP_SERVICE留空时，自定义SMTP服务器地址 
+SMTP_PORT | 465 | [可选]SMTP_SERVICE留空时，自定义SMTP端口
+SMTP_SECURE | true | [可选]使用TLS 
 
-## Troubleshooting
+
+### Troubleshooting
 
 - 部署失败，请在评论中附图，或去Github发起Issue
 - 邮件发送失败，确保环境变量都没问题后，重启云引擎
-  
     ![重启云引擎](assets/imgs/reboot.png)
-    
 - 博主通知模板中不要出现`PARENT*`相关参数（请勿混用模板）
-
--  点击邮件中的链接跳转至相应评论，这一细节实现需要一点额外的代码：
-
+- 点击邮件中的链接跳转至相应评论，这一细节实现需要在Web前端添加一点额外的代码：
 ``` javascript
 <script>
     if(window.location.hash){
@@ -175,14 +168,6 @@ AKISMET_KEY | xxxxxxxxxxxx | [可选]Akismet Key 用于垃圾评论检测
     }
 </script>
 ```
-
-- 自定义邮件服务器地址和端口信息，删除SMTP_SERVICE环境变量，新增以下变量：
-
-变量 | 示例 | 说明
-----|------|------
-SMTP_HOST | smtp.qq.com | [可选]SMTP_SERVICE留空时，自定义SMTP服务器地址 
-SMTP_PORT | 465 | [可选]SMTP_SERVICE留空时，自定义SMTP端口
-SMTP_SECURE | true | [可选]SMTP_SERVICE留空时填写
 
 ## 相关项目
 
