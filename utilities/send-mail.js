@@ -39,6 +39,10 @@ exports.notice = (comment) => {
     let emailSubject = eval('`' + _subject + '`');
     let emailContent = eval('`' + _template + '`');
 
+    if (comment.get('isSpam')) {
+        emailSubject = '[SPAM]' + emailSubject;
+    }
+
     let mailOptions = {
         from: '"' + process.env.SENDER_NAME + '" <' + process.env.SENDER_EMAIL + '>',
         to: process.env.BLOGGER_EMAIL || process.env.SENDER_EMAIL,

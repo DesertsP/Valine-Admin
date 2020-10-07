@@ -5,14 +5,15 @@ const request = require('request');
 const spam = require('./utilities/check-spam');
 
 function sendNotification(currentComment, defaultIp) {
-    // 发送博主通知邮件
-    if (currentComment.get('mail') !== process.env.BLOGGER_EMAIL) {
-        mail.notice(currentComment);
-    }
-
     let ip = currentComment.get('ip') || defaultIp;
     console.log('IP: %s', ip);
     spam.checkSpam(currentComment, ip);
+
+    // 发送博主通知邮件
+    bloggerMail = process.env.BLOGGER_EMAIL || process.env.SENDER_EMAIL;
+    if (currentComment.get('mail') !== bloggerMail) {
+        mail.notice(currentComment);
+    }
 
     // AT评论通知
     let rid =currentComment.get('pid') || currentComment.get('rid');
