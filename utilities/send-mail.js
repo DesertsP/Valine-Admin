@@ -25,7 +25,7 @@ transporter.verify(function(error, success) {
     if (success) {
         console.log("SMTP邮箱配置正常！");
     }
-}); 
+});
 
 exports.notice = (comment) => {
     let SITE_NAME = process.env.SITE_NAME;
