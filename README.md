@@ -4,8 +4,6 @@ Valine Admin 是 [Valine 评论系统](https://deserts.io/diy-a-comment-system/)
 
 [评论在线演示及相关功能测试](https://panjunwen.github.io/Valine/)
 
-配置以[博客最新版](https://deserts.io/valine-admin-document/)为准。
-
 ## 相关项目
 
 评论框前端：[Valine on Github](https://github.com/DesertsP/Valine)
