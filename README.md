@@ -176,6 +176,40 @@ SMTP_SECURE | true | [可选]使用TLS
 
 
 ------------------
+## 本机，VPS部署，使用[Docker镜像](https://hub.docker.com/r/akyakya/valine-admin)
+首先确认本机已经安装 [Node.js](http://nodejs.org/) 运行环境，参考上面的 `环境变量` 配置好对应的环境变量，然后执行下列指令：
+
+```
+$ git clone https://github.com/DesertsP/ValineAdmin.git
+$ cd ValineAdmin
+```
+
+安装依赖：
+
+```
+npm install
+```
+
+配置定时任务
+
+```
+```
+
+插入下面的内容，保存
+
+
+```
+
+## 每5分钟执行一次邮件发送任务, 注意 `/Valine-Admin` 这里路径需要替换为自己正确的绝对路径
+*/5 * * * * node /Valine-Admin/send-notification.js >> /Valine-Admin/send.log 2>&1
+```
+
+启动项目：
+
+```
+npm server.js
+```
+
 
 ## 开发者文档
 
